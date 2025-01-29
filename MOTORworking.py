@@ -1,4 +1,13 @@
-from machine import Pin, PWM 
+from machine import Pin, PWM
+
+# M1=1 => Forward
+# M2= => Backward
+
+#Forward: M1=1, M2=0
+#Backward: M2=0, M1=1
+#Right turn: M1= , M2=
+#Left turn: M1= , M2=
+
 class Motor: 
     def __init__(self): 
         self.m1Dir = Pin(4 , Pin.OUT)         # set pin left wheel 
@@ -24,7 +33,7 @@ class Motor:
     def Forward(self): 
         self.m1Dir.value(1) 
         self.pwm1.duty_u16(int(65535*100/100))
-        self.m2Dir.value(1) 
+        self.m2Dir.value(0) 			
         self.pwm2.duty_u16(int(65535*100/100))
         
     def left_turn(self, speed = 100): 
