@@ -29,7 +29,8 @@ class Motor:
         self.pwm1.duty_u16(int(65535*100/100))
         self.m2Dir.value(0)                     # forward = 0 reverse = 1 motor 1 
         self.pwm2.duty_u16(int(65535*100/100))
-        # speed range 0-100 motor 1 
+        # speed range 0-100 motor 1
+        
     def Forward(self): 
         self.m1Dir.value(1) 
         self.pwm1.duty_u16(int(65535*100/100))
@@ -53,7 +54,7 @@ class Motor:
     def anticlockwise_turn(self, speed = 100):
         
         
-    def adjust_direction(self, speed, turn):
+    def adjust_direction(self, theta, turn):
         if turn == "left":
             self.m1Dir.value(1)
             self.pwm1.duty_16(int(65525*speed/100))
@@ -62,6 +63,6 @@ class Motor:
             self.pwm2.duty_16(int(65525*speed/100))
             
         
-        
+     
         
         
