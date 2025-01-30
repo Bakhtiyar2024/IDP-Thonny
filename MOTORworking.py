@@ -48,8 +48,11 @@ class Motor:
         self.m2Dir.value(0) 
         self.pwm2.duty_u16(int(65535*speed/100))
         
+    def clockwise_turn(self, speed = 100):
         
-    
+    def anticlockwise_turn(self, speed = 100):
+        
+        
     def adjust_direction(self, speed, turn):
         if turn == "left":
             self.m1Dir.value(1)
