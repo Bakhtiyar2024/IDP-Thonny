@@ -57,12 +57,19 @@ class Motor:
     def adjust_direction(self, theta, turn):
         if turn == "left":
             self.m1Dir.value(1)
+            self.pwm1.duty_16(int(65525))
+        elif turn == "right":
+            self.m2Dir.value(1)
+            self.pwm2.duty_16(int(65525))
+            
+    def damping(self, theta, turn):
+        speed = 100-kp*theta
+        if turn == "left":
+            self.m1Dir.value(1)
             self.pwm1.duty_16(int(65525*speed/100))
         elif turn == "right":
             self.m2Dir.value(1)
             self.pwm2.duty_16(int(65525*speed/100))
-            
-        
      
         
         

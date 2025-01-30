@@ -55,7 +55,9 @@ def adjust(timer, turn): #takes in how long we have been on white line, calculat
         Motor.adjust_direction(theta = 0.1, turn)
         
     entry(theta)
+    sleep(0.2)
         
 
-def entry()
+def entry(theta):
+    
         
