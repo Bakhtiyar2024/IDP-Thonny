@@ -8,6 +8,12 @@ from machine import Pin, PWM
 #Right turn: M1= , M2=
 #Left turn: M1= , M2=
 
+#wheel radius = 32mm
+#at speed of 20, 1 rotation =5s
+#therefore, velocity = 2 x 'speed' mm/s 
+
+speed = 100
+
 class Motor: 
     def __init__(self): 
         self.m1Dir = Pin(4 , Pin.OUT)         # set pin left wheel 
@@ -32,10 +38,10 @@ class Motor:
         # speed range 0-100 motor 1
         
     def Forward(self): 
-        self.m1Dir.value(1) 
-        self.pwm1.duty_u16(int(65535*100/100))
+        self.m1Dir.value(0) 
+        self.pwm1.duty_u16(int(65535*speed/100))
         self.m2Dir.value(0) 			
-        self.pwm2.duty_u16(int(65535*100/100))
+        self.pwm2.duty_u16(int(65535*speed/100))
         
     def left_turn(self, speed = 100): 
         self.m1Dir.value(0) 
@@ -49,27 +55,33 @@ class Motor:
         self.m2Dir.value(0) 
         self.pwm2.duty_u16(int(65535*speed/100))
         
-    def clockwise_turn(self, speed = 100):
-        
-    def anticlockwise_turn(self, speed = 100):
-        
-        
-    def adjust_direction(self, theta, turn):
+    
+    def adjust_direction(self, turn):
         if turn == "left":
-            self.m1Dir.value(1)
-            self.pwm1.duty_16(int(65525))
+            self.m1Dir.value(0) 
+            self.pwm1.duty_u16(int(65535*speed/100))
+            self.m2Dir.value(0) 			
+            self.pwm2.duty_u16(int(65535*(speed*0.5)/100))
         elif turn == "right":
-            self.m2Dir.value(1)
-            self.pwm2.duty_16(int(65525))
+            self.m1Dir.value(0)
+            self.pwm1.duty_u16(int(65535*(speed*0.5)/100))
+            self.m2Dir.value(0)
+            self.pwm2.duty_u16(int(65535*speed/100))
             
     def damping(self, theta, turn):
-        speed = 100-kp*theta
+        kp=300
+        speed2 = speed-kp*theta
+        print(speed2)
         if turn == "left":
-            self.m1Dir.value(1)
-            self.pwm1.duty_16(int(65525*speed/100))
+            self.m1Dir.value(0)
+            self.pwm1.duty_u16(int(65535*speed2/100))
+            self.m2Dir.value(0) 			
+            self.pwm2.duty_u16(int(65535*speed/100))
         elif turn == "right":
-            self.m2Dir.value(1)
-            self.pwm2.duty_16(int(65525*speed/100))
+            self.m1Dir.value(0)
+            self.pwm1.duty_u16(int(65535*speed/100))
+            self.m2Dir.value(0)
+            self.pwm2.duty_u16(int(65535*speed2/100))
      
         
         
