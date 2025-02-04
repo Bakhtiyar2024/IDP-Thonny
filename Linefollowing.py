@@ -10,6 +10,9 @@ class LineFollowing:
     def __init__(self):
         self.left_sensor = Pin(10, Pin.IN)
         self.right_sensor = Pin(11, Pin.IN)
+        #self.junction1 = Pin(__, Pin.IN)
+        #self.junction2 = Pin(__, Pin.IN)
+        
         self.on_line = False
         self.start_time = 0
         self.end_time = 100
@@ -27,27 +30,27 @@ class LineFollowing:
             Motor.adjust_direction(turn)
             
         #print(theta*180/3.14)
-        Motor.damping(theta, turn)
-        sleep(0.5)
+        #Motor.damping(theta, turn)
+        #sleep(0.5)
             
         
     def Follow_line(self):
-        while True:
+        following = True
+        while following == True:
             left_value = self.left_sensor.value()
             right_value = self.right_sensor.value()
-            
+            junction1 = self.junction1.value()
+            junction2 = self.junction2.value()
+
+
             if left_value == 1 and right_value == 1: #Both sensors detect line
                
                 if self.on_line == False:
                     self.start_time = ticks_ms()
                 self.on_line = True
-                
                 Motor.Forward()
-                #print("going forward")
-                
                 
             elif left_value == 1 and right_value == 0: #therefore off to the right of the line
-                #print("Adjust Left")
                 if self.on_line == True:
                     self.end_time = ticks_ms()
                 self.on_line = False
@@ -55,13 +58,16 @@ class LineFollowing:
                 adjust(end_time - start_time + 1, turn="left")
                 
             elif left_value == 0 and right_value == 1:
-                #print("Adjust Right")
                 if self.on_line == True:
                     self.end_time = ticks_ms()
                 self.on_line = False
                 adjust(end_time - start_time, turn="right")
                 
+            if (junction1 or junction2) == 1:
+                following = False
+                
             sleep(0.1)
+        
             
     def turn(self, direction, angle):#
         done = False
