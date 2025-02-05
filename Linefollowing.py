@@ -68,7 +68,8 @@ class LineFollowing:
                 following = False
                 Motor.off
                 
-            sleep(0.1)
+        sleep(0.1)
+        #break
         
             
     def turn(self, direction, angle):#
@@ -95,7 +96,7 @@ class LineFollowing:
             self.Follow_line(not_turning = False)
             sleep(2)
         Motor.off()
-        
+        #break
         
     
         

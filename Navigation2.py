@@ -40,7 +40,7 @@ def navigation(path):
             elif step == "f":
                 Motor.off()
                 completed = True
-                
+                break
                 
             
 
