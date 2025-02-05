@@ -643,10 +643,10 @@ class VL53L0X():
         return True
 
     def perform_single_ref_calibration(self, vhv_init_byte):
-       
+        
         # Pico MicroPython doesn't have a Chrono class, so the line below is commented out
         # chrono = Timer.Chrono()
-       
+        
         self._register(SYSRANGE_START, 0x01|vhv_init_byte)
 
         # Instead of using the chrono class, I'll just capture the current time

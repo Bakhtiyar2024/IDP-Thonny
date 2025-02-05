@@ -3,7 +3,7 @@ from time import sleep
 import machine
 
 class QRCodeReader:
-    def __init__(self, i2c_id=1, scl_pin=19, sda_pin=18, freq=100000, address=0x0C, delay=0.1):
+    def __init__(self, i2c_id=1, scl_pin=17, sda_pin=16, freq=100000, address=0x0C, delay=0.1):
         """
         Initializes the QR Code Reader on I2C.
 
@@ -68,3 +68,22 @@ class QRCodeReader:
         except OSError as e:
             print("I2C Read Error:", e)
             return None
+        
+
+def main():
+    try:
+        qr_reader = QRCodeReader()  # Initialize the QR code reader
+        print("QR Code Reader initialized successfully.")
+
+        while True:
+            qr_code = qr_reader.read_qr_code()
+            if qr_code:
+                print(f"QR Code Detected: {qr_code}")
+            else:
+                print("No QR Code detected.")
+    except Exception as e:
+        print("Error:", e)
+
+if __name__ == "__main__":
+    main()
+

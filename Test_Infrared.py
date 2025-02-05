@@ -3,9 +3,9 @@ from machine import Pin, I2C
 from vl53l0x import VL53L0X
 
 print("setting up i2c")
-sda = Pin(16)
-scl = Pin(17)
-id = 0
+sda = Pin(18)
+scl = Pin(19)
+id = 1
 
 i2c = I2C(id=id, sda=sda, scl=scl)
 
@@ -34,6 +34,11 @@ tof.set_Vcsel_pulse_period(tof.vcsel_period_type[0], 12)
 # tof.set_Vcsel_pulse_period(tof.vcsel_period_type[1], 14)
 tof.set_Vcsel_pulse_period(tof.vcsel_period_type[1], 8)
 
-while True:
+
+def get_distance():
+    """Returns the current distance reading from the VL53L0X sensor."""
+    return tof.ping() - 50
+
+#while True:
 # Start ranging
-    print(tof.ping()-50, "mm")
+ #   print(tof.ping()-50, "mm")
