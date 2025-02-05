@@ -1,17 +1,23 @@
 
  #l = acw 90,  r = cw 90,  s = skip,  scw = 180 spin clockwise,  sacw = 180 spin anticlockwise, f == finished
-
+from time import sleep, ticks_ms
+from machine import Pin
 from Linefollowing import LineFollowing
-from MOTORworking import Motor
+from MOTOR import Motor
+
+button = Pin(12, Pin.IN, Pin.PULL_DOWN)
 
 LF = LineFollowing()
 Motor = Motor()
 
-path = ["r", "l", "r"]
+path = ["r", "l", "l"]
+#O_to_1 = []
+#1_to_a = []
+#1_to_b = []
 
 def navigation(path):
     completed = False
-        while completed == False:
+    while completed == False:
         for step in path:
             LF.Follow_line() #will continue until junction is met
         
@@ -37,10 +43,12 @@ def navigation(path):
                 
                 
             
+
             
-            
-            
-            
+while True:
+    if button.value() ==1:
+        navigation(path)
+    sleep(0.1)
             
             
             

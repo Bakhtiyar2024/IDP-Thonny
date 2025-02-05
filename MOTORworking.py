@@ -43,13 +43,13 @@ class Motor:
         self.m2Dir.value(0) 			
         self.pwm2.duty_u16(int(65535*speed/100))
         
-    def left_turn(self, speed = 100): 
+    def acw_spin(self, speed = 100): 
         self.m1Dir.value(0) 
         self.pwm1.duty_u16(int(65535*speed/100))
         self.m2Dir.value(1) 
         self.pwm2.duty_u16(int(65535*speed/100))
         
-    def right_turn(self, speed = 100): 
+    def cw_spin(self, speed = 100): 
         self.m1Dir.value(1) 
         self.pwm1.duty_u16(int(65535*speed/100))
         self.m2Dir.value(0) 
@@ -61,10 +61,10 @@ class Motor:
             self.m1Dir.value(0) 
             self.pwm1.duty_u16(int(65535*speed/100))
             self.m2Dir.value(0) 			
-            self.pwm2.duty_u16(int(65535*(speed*0.9)/100))
+            self.pwm2.duty_u16(int(65535*(speed*0.8)/100))
         elif turn == "right":
             self.m1Dir.value(0)
-            self.pwm1.duty_u16(int(65535*(speed*0.9)/100))
+            self.pwm1.duty_u16(int(65535*(speed*0.8)/100))
             self.m2Dir.value(0)
             self.pwm2.duty_u16(int(65535*speed/100))
             
