@@ -10,7 +10,7 @@ button = Pin(12, Pin.IN, Pin.PULL_DOWN)
 LF = LineFollowing()
 Motor = Motor()
 
-path = ["r", "l", "l"]
+path = ["r", "s", "r"]
 #O_to_1 = []
 #1_to_a = []
 #1_to_b = []
@@ -40,15 +40,16 @@ def navigation(path):
             elif step == "f":
                 Motor.off()
                 completed = True
-                break
+                #break
                 
             
 
             
 while True:
-    if button.value() ==1:
-        navigation(path)
-    sleep(0.1)
+#    navigation(path)
+    LF.Follow_line()
+    LF.turn("cw", 90)
+    sleep(5)
             
             
             
