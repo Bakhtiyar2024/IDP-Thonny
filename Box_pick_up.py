@@ -50,6 +50,10 @@ def box_pickup():
     
     motor.off()
     print("T-Junction detected. Box pickup sequence complete!")
+    
+    #Next destination is returned
+    next_destination = qr_code
+    return next_destination
 
 # Run the box pickup sequence
 box_pickup()
