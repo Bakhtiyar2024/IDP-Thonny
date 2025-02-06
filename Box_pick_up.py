@@ -15,7 +15,7 @@ def box_pickup():
     
     # Move forward slowly until distance ~100mm
     while get_distance() > 100:
-        motor.Forward()
+        motor.Forward(speed=30)
         time.sleep(0.1)  # Adjust for smooth movement
     
     motor.off()  # Stop the robot
@@ -33,19 +33,19 @@ def box_pickup():
     
     # Move forward slowly until distance ~20mm
     while get_distance() > 20:
-        motor.Forward()
+        motor.Forward(speed=20)
         time.sleep(0.1)
     
     motor.off()
     print("Reached ~20mm. Activating linear actuator...")
     
     # Activate linear actuator to lift the box
-    move_actuator("extend", 2)  # Adjust duration as needed
+    motor.Actuator_up(speed = 50)  # Adjust duration as needed
     print("Box lifted. Moving back...")
 
     # Reverse slowly until a T-junction is detected
     while not (line_following.junction1.value() or line_following.junction2.value()):
-        motor.Reverse()
+        motor.Reverse(speed = 30)
         time.sleep(0.1)
     
     motor.off()
