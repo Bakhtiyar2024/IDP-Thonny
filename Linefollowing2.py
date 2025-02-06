@@ -27,32 +27,29 @@ class LineFollowing:
             
         
     def Follow_line(self):
-        following = True
-        while following == True:
-            left_value = self.left_sensor.value()
-            right_value = self.right_sensor.value()
+        
+        junction1 = self.junction1.value()
+        junction2 = self.junction2.value()
+        
+        while (junction1 or junction2) == 0 :
             junction1 = self.junction1.value()
             junction2 = self.junction2.value()
-
-            if (junction1 or junction2) ==1 :
-                Motor.off()
-                following = False
-                
-            elif left_value == 0 and right_value == 0:
-                sleep(0.01)
-                
-            elif left_value == 1 and right_value == 1: #Both sensors detect line
+            left_value = self.left_sensor.value()
+            right_value = self.right_sensor.value()
+            
+            if left_value == 1 and right_value == 1: #Both sensors detect line
                
                 Motor.Forward()
                 
             elif left_value == 1 and right_value == 0: #therefore off to the right of the line
-                
                 self.adjust( turn="left")
                 
             elif left_value == 0 and right_value == 1:
-                
                 self.adjust( turn="right")
-                
+                    
+            sleep(0.01)
+                        
+        Motor.off()                
                             
                 
         sleep(0.01)
@@ -77,7 +74,7 @@ class LineFollowing:
                 right_value = self.right_sensor.value()
                 if left_value == 1 or right_value == 1: #Both sensors detect line
                     done2 = True
-                sleep(0.01)
+                sleep(0.2)
                 
             done = True
                 
