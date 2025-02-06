@@ -38,6 +38,8 @@ class LineFollowing:
                 Motor.off()
                 following = False
                 
+            elif left_value == 0 and right_value == 0:
+                sleep(0.01)
                 
             elif left_value == 1 and right_value == 1: #Both sensors detect line
                
