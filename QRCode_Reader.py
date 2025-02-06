@@ -60,7 +60,8 @@ class QRCodeReader:
 
             # Extract and decode message bytes
             message_bytes = read_data[self.message_offset:self.message_offset + message_length]
-            return message_bytes.decode("utf-8")
+            decoded_message = message_bytes.decode("utf-8")
+            return decoded_message[0] if decoded_message else None
 
         except UnicodeDecodeError:
             print("Error: Unable to decode message. Check if it’s valid UTF-8.")
