@@ -3,7 +3,7 @@ from time import sleep
 import machine
 
 class QRCodeReader:
-    def __init__(self, i2c_id=1, scl_pin=17, sda_pin=16, freq=100000, address=0x0C, delay=0.1):
+    def __init__(self, i2c_id=1, scl_pin=21, sda_pin=20, freq=100000, address=0x0C, delay=0.1):
         """
         Initializes the QR Code Reader on I2C.
 
@@ -60,7 +60,8 @@ class QRCodeReader:
 
             # Extract and decode message bytes
             message_bytes = read_data[self.message_offset:self.message_offset + message_length]
-            return message_bytes.decode("utf-8")
+            decoded_message = message_bytes.decode("utf-8")
+            return decoded_message[0] if decoded_message else None
 
         except UnicodeDecodeError:
             print("Error: Unable to decode message. Check if it’s valid UTF-8.")
