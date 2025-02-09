@@ -26,7 +26,7 @@ location_routes_from_depot_B = {
 
 # Function to reverse a route
 def reverse_route(route):
-    reverse_map = {"left": "right", "right": "left", "forward": "forward"}
+    reverse_map = {"l": "r", "r": "l", "s": "s"}
     return [reverse_map[cmd] for cmd in reversed(route)]
 
         

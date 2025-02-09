@@ -41,8 +41,15 @@ def box_drop_off(destination):
     
     #fetching next destination
     if box_drop_off.drop_count < 4:
-        return "Depot1"
+        return reverse_route(location_routes_from_depot_A[destination])
+    elif box_drop_off.drop_count == 4:
+        return reverse_route(location_routes_from_depot_B[destination])
+    elif box_drop_off.drop_count == 8:
+        reversed_route = reverse_route(location_routes_from_depot_B[destination])
+        combined_route = reversed_route.append([r, l])
+        return combined_route
     
+
 
 # Run the box drop-off sequence
 box_drop_off()
