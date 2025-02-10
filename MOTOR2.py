@@ -15,6 +15,11 @@ class Motor:
         self.pwm2.freq(1000) 
         self.pwm2.duty_u16(0)
         
+        self.m3Dir = Pin(0 , Pin.OUT)         # set pin left wheel 
+        self.pwm3 = PWM(Pin(1))           
+        self.pwm3.freq(1000) 
+        self.pwm3.duty_u16(0)
+        
     def off(self): 
         self.pwm1.duty_u16(0)
         self.pwm2.duty_u16(0)
@@ -44,6 +49,22 @@ class Motor:
         self.m2Dir.value(0) 
         self.pwm2.duty_u16(int(65535*speed/100))
         
+    def Actuator_down(self, speed, duration = 1): 
+        self.m3Dir.value(1)                     # forward = 0 reverse = 1 motor 1 
+        self.pwm3.duty_u16(int(65535*speed/100))
+        time.sleep(duration)
+        self.pwm3.duty_u16(0)
+        #sleep(1)
+        #self.pwm1.duty_u16(int(65535*0/100))
+    
+    def Actuator_up(self, speed, duration = 1): 
+        self.m3Dir.value(0)                     # forward = 0 reverse = 1 motor 1 
+        self.pwm3.duty_u16(int(65535*speed/100))
+        time.sleep(duration)
+        self.pwm3.duty_u16(0)
+        #sleep(1)
+        #self.pwm1.duty_u16(int(65535*0/100))
+    
     
     def adjust_direction(self, turn, speed = 100):
         if turn == "left":
