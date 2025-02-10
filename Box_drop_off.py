@@ -1,13 +1,13 @@
 from Infrared_distance_final import get_distance
 from LinearActuator import move_actuator
 from MOTOR import Motor
-from Linefollowing import LineFollowing
+from Linefollowing2 import LineFollowing
 import time
 import Location_Routes
 
 # Initialize Components
 motor = Motor()
-line_following = LineFollowing()
+line_following2 = LineFollowing()
 
 def box_drop_off(destination):
     
@@ -38,6 +38,9 @@ def box_drop_off(destination):
 
     motor.off()
     print("Box drop-off sequence complete!")
+    
+    #rotate 180 degrees
+    line_following.turn(direction = 'cw', angle = 180)
     
     #fetching next destination
     if box_drop_off.drop_count < 4:

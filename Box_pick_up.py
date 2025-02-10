@@ -2,7 +2,7 @@ from Infrared_distance_final import get_distance
 from QRCode_Reader import QRCodeReader
 from LinearActuator import move_actuator
 from MOTORworking import Motor
-from Linefollowing import LineFollowing
+from Linefollowing2 import LineFollowing
 import time
 
 # Initialize Components
@@ -50,6 +50,9 @@ def box_pickup():
     
     motor.off()
     print("T-Junction detected. Box pickup sequence complete!")
+    
+    #rotate 180 degrees
+    line_following.turn(direction = 'cw', angle = 180)
     
     #Next destination is returned
     next_destination = qr_code
