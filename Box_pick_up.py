@@ -15,7 +15,7 @@ def box_pickup():
     
     # Move forward slowly until distance ~100mm
     while get_distance() > 100:
-        motor.Forward(speed=30)
+        motor.Reverse(speed=30)
         time.sleep(0.1)  # Adjust for smooth movement
     
     motor.off()  # Stop the robot
@@ -45,11 +45,14 @@ def box_pickup():
 
     # Reverse slowly until a T-junction is detected
     while not (line_following.junction1.value() or line_following.junction2.value()):
-        motor.Reverse(speed = 30)
+        motor.Forward(speed = 30)
         time.sleep(0.1)
     
     motor.off()
     print("T-Junction detected. Box pickup sequence complete!")
+    
+    #rotate 180 degrees
+    line_following.turn(direction = 'cw', angle = 180)
     
     #Next destination is returned
     next_destination = qr_code
