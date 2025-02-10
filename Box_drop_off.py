@@ -1,7 +1,7 @@
 from Infrared_distance_final import get_distance
 from LinearActuator import move_actuator
 from MOTOR import Motor
-from Linefollowing2 import LineFollowing
+from Linefollowing import LineFollowing
 import time
 import Location_Routes
 
@@ -21,7 +21,7 @@ def box_drop_off(destination):
 
     # Move forward slowly until a T-junction is detected
     while not (line_following.junction1.value() or line_following.junction2.value()):
-        motor.Forward(speed=20)
+        motor.Reverse(speed=20)
         time.sleep(0.1)  # Smooth movement
 
     motor.off()
@@ -33,7 +33,7 @@ def box_drop_off(destination):
 
      # Reverse slowly until a T-junction is detected
     while not (line_following.junction1.value() or line_following.junction2.value()):
-        motor.Reverse(speed = 30)
+        motor.Forward(speed = 30)
         time.sleep(0.1)
 
     motor.off()

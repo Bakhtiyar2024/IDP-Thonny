@@ -2,7 +2,7 @@ from Infrared_distance_final import get_distance
 from QRCode_Reader import QRCodeReader
 from LinearActuator import move_actuator
 from MOTORworking import Motor
-from Linefollowing2 import LineFollowing
+from Linefollowing import LineFollowing
 import time
 
 # Initialize Components
@@ -15,7 +15,7 @@ def box_pickup():
     
     # Move forward slowly until distance ~100mm
     while get_distance() > 100:
-        motor.Forward(speed=30)
+        motor.Reverse(speed=30)
         time.sleep(0.1)  # Adjust for smooth movement
     
     motor.off()  # Stop the robot
@@ -45,7 +45,7 @@ def box_pickup():
 
     # Reverse slowly until a T-junction is detected
     while not (line_following.junction1.value() or line_following.junction2.value()):
-        motor.Reverse(speed = 30)
+        motor.Forward(speed = 30)
         time.sleep(0.1)
     
     motor.off()
