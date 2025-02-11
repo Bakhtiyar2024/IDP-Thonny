@@ -57,17 +57,21 @@ class LineFollowing:
         elif direction == "acw":
             Motor.acw_spin(50)
             sleep(0.015 * angle)
-            
-        
-        
         
         done = False
         while done ==False:
             left_value = self.left_sensor.value()
             right_value = self.right_sensor.value()
+            junction1 = self.junction1.value()
+            junction2 = self.junction2.value()
+            
             if left_value == 1 or right_value == 1: #Both sensors detect line
                 done = True
                 sleep(0.2)
+            
+            if junction1 == 1 or junction2 == 1:
+                done = True
+                sleep(0.1)
             
                 
         

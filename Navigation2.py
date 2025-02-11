@@ -10,8 +10,7 @@ button = Pin(12, Pin.IN, Pin.PULL_DOWN)
 LF = LineFollowing()
 Motor = Motor()
 
-path = ["r", "s", "s", "l", "l", "s", "r", "s", "l", "l", "s", "f"]
-#path = ["l", "l", "f"]
+#path = ["r", "s", "s", "l", "l", "s", "r", "s", "l", "l", "s", "f"]
 
 #O_to_1 = []
 #1_to_a = []
