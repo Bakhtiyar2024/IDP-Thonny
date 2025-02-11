@@ -48,8 +48,10 @@ def navigation(path):
 
             
 while True:
-    navigation(path)
-    sleep(5)
+    sleep(1)
+    Motor.Forward()
+    sleep(1)
+    Motor.Reverse()
             
             
             

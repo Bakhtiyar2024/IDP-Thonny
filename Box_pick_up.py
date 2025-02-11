@@ -59,4 +59,5 @@ def box_pickup():
     return next_destination
 
 # Run the box pickup sequence
-box_pickup()
+if __name__ == "__main__":
+    box_pickup()
