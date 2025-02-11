@@ -37,6 +37,7 @@ tof.set_Vcsel_pulse_period(tof.vcsel_period_type[1], 8)
 
 def get_distance():
     """Returns the current distance reading from the VL53L0X sensor."""
+    tof.ping() - 50
     return tof.ping() - 50
 
 #while True:
