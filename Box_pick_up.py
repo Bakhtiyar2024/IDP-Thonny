@@ -23,6 +23,7 @@ def box_pickup():
     
     # Try reading QR code
     qr_code = None
+    """
     while not qr_code:
         qr_code = qr_reader.read_qr_code()
         if qr_code:
@@ -30,10 +31,10 @@ def box_pickup():
         else:
             print("No QR code detected, retrying...")
             time.sleep(0.5)
-    
+    """
     # Move forward slowly until distance ~20mm
     while get_distance() > 20:
-        motor.Forward(speed=20)
+        motor.Reverse(speed=20)
         time.sleep(0.1)
     
     motor.off()
@@ -51,12 +52,10 @@ def box_pickup():
     motor.off()
     print("T-Junction detected. Box pickup sequence complete!")
     
-    #rotate 180 degrees
-    line_following.turn(direction = 'cw', angle = 180)
-    
+        
     #Next destination is returned
-    next_destination = qr_code
-    return next_destination
+    #next_destination = qr_code
+    #return next_destination
 
 # Run the box pickup sequence
 if __name__ == "__main__":

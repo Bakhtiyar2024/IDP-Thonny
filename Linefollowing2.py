@@ -32,12 +32,12 @@ class LineFollowing:
                 
             elif left_value == 1 and right_value == 0: #therefore off to the right of the line                
                 Motor.adjust_direction("left")
-                while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and ((self.junction1.value() and self.junction2.value()) ==0):
+                while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and ((self.junction1.value() or self.junction2.value()) ==0):
                     sleep(0.01)
                 
             elif left_value == 0 and right_value == 1:
                 Motor.adjust_direction("right")
-                while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and ((self.junction1.value() and self.junction2.value()) ==0):
+                while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and ((self.junction1.value() or self.junction2.value()) ==0):
                     sleep(0.01)
                     
             sleep(0.01)

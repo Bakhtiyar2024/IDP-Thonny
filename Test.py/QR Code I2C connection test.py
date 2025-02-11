@@ -2,7 +2,7 @@ from machine import Pin, I2C
 import time
 
 # Initialize I2C bus on Pico W (SDA=GP20, SCL=GP21)
-i2c = I2C(0, scl=Pin(21), sda=Pin(20))
+i2c = I2C(1, scl=Pin(19), sda=Pin(18))
 
 # Wait a bit for the bus to stabilize
 time.sleep(1)

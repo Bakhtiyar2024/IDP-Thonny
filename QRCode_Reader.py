@@ -3,7 +3,7 @@ from time import sleep
 import machine
 
 class QRCodeReader:
-    def __init__(self, i2c_id=1, scl_pin=21, sda_pin=20, freq=100000, address=0x0C, delay=0.1):
+    def __init__(self, i2c_id=0, scl_pin=21, sda_pin=20, freq=100000, address=0x0C, delay=0.1):
         """
         Initializes the QR Code Reader on I2C.
 
