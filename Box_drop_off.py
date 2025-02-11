@@ -55,4 +55,5 @@ def box_drop_off(destination):
 
 
 # Run the box drop-off sequence
-box_drop_off()
+if __name__ == "__main__":
+    box_drop_off()
