@@ -16,11 +16,7 @@ def main():
         while check_button() == True:
             motor.Forward()
             sleep(1)
-            line_following.Follow_line()
-            # drive until reached first junction
-            while not (line_following.junction1.value() or line_following.junction2.value()):
-                motor.Forward(speed = 30)
-                time.sleep(0.1)
+            line_following.Follow_line() # drive until reached first junction
             
             #get to Depot1 first
             destination = location_routes_from_start["Depot1"]
@@ -44,8 +40,13 @@ def main():
                 navigation(destination)
                 
             #coming back to starting spot
-                
-                
+            line_following.Follow_line()
+            motor.Forward()
+            sleep(1)
+            motor.off()
+            line_following.turn(direction = "cw", angle = 180)
+            
+            check_button() = False
             
 
 if __name__ == "__main__":
