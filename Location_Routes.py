@@ -1,8 +1,3 @@
-from Linefollowing import follow_line
-from MOTORworking import Motor
-from T_Junction_Detection import check_sensors
-import time
-
 
 # Dictionary to store predefined routes
 location_routes_from_start = {
@@ -10,15 +5,15 @@ location_routes_from_start = {
     "Depot2" : ["l", "r"]
     
 }
-location_routes_from_depot_A = {
+location_routes_from_depot_1 = {
     "A": ["l", "s", "l"],
     "B": ["s", "l", "r"],
     "C": ["s", "l","s","r","r"],
     "D": ["s","s","l","r"]
 }
 
-location_routes_from_depot_B = {
-    "A": ["r", "r"],
+location_routes_from_depot_2 = {
+    "A": ["r", "l", "scw"],
     "B": ["s", "r", "s", "l"],
     "C": ["s", "r","l","r"],
     "D": ["s","s","r","s","l"]   

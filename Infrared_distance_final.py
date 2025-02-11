@@ -40,5 +40,7 @@ def get_distance():
     tof.ping() - 50
     return tof.ping() - 50
 
+"""
 while True:
     print(tof.ping()-50, "mm")
+"""

@@ -1,13 +1,12 @@
 from Infrared_distance_final import get_distance
 from QRCode_Reader import QRCodeReader
-from LinearActuator import move_actuator
-from MOTORworking import Motor
+from MOTOR import Motor
 from Linefollowing import LineFollowing
 import time
 
 # Initialize Components
 motor = Motor()
-qr_reader = QRCodeReader()
+#qr_reader = QRCodeReader()
 line_following = LineFollowing()
 
 def box_pickup():
@@ -34,7 +33,8 @@ def box_pickup():
     """
     # Move forward slowly until distance ~20mm
     while get_distance() > 20:
-        motor.Reverse(speed=20)
+        #line_following.Rev_Follow_line()
+        motor.Reverse(40)
         time.sleep(0.1)
     
     motor.off()
@@ -58,5 +58,8 @@ def box_pickup():
     #return next_destination
 
 # Run the box pickup sequence
-if __name__ == "__main__":
-    box_pickup()
+motor.Actuator_down(speed = 100,duration = 6 )
+
+#box_pickup()
+    #motor.Reverse(50)
+    

@@ -52,11 +52,13 @@ class LineFollowing:
     def turn(self, direction, angle):#
         if direction == "cw":
             Motor.cw_spin(50)
-            sleep(0.005 * angle)
+            sleep(0.015 * angle)
                 
         elif direction == "acw":
             Motor.acw_spin(50)
-            sleep(0.005 * angle)
+            sleep(0.015 * angle)
+            
+        
         
         
         done = False
@@ -93,13 +95,17 @@ class LineFollowing:
             
             if left_value == 1 and right_value == 1: #Both sensors detect line
                
-                Motor.Reverse()
+                Motor.Reverse(40)
                 
-            elif left_value == 1 and right_value == 0: #therefore off to the right of the line
-                self.rev_adjust( turn="right")
+            elif left_value == 1 and right_value == 0: #therefore off to the right of the line                
+                Motor.rev_adjust_direction("right")
+                while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and ((self.junction1.value() or self.junction2.value()) ==0):
+                    sleep(0.01)
                 
             elif left_value == 0 and right_value == 1:
-                self.rev_adjust( turn="left")
+                Motor.rev_adjust_direction("left")
+                while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and ((self.junction1.value() or self.junction2.value()) ==0):
+                    sleep(0.01)
                     
             sleep(0.01)
                         

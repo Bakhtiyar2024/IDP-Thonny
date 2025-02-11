@@ -45,13 +45,12 @@ def navigation(path):
                 #break
                 
             
+from Location_Routes import location_routes_from_start, reverse_route, location_routes_from_depot_1, location_routes_from_depot_2
 
-            
+
 while True:
     sleep(1)
-    Motor.Forward()
-    sleep(1)
-    Motor.Reverse()
+    navigation(location_routes_from_depot_2["A"])
             
             
             
