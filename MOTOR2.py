@@ -76,7 +76,7 @@ class Motor:
         self.led.value(1)
         
     
-    def adjust_direction(self, turn):
+    def adjust_direction(self, turn, speed=100):
         self.led.value(1)
         if turn == "left":
             self.m1Dir.value(0) 
@@ -89,7 +89,7 @@ class Motor:
             self.m2Dir.value(0)
             self.pwm2.duty_u16(int(65535*speed*r2/100))
             
-    
+    """
     def rev_adjust_direction(self, turn):
         if turn == "right":
             self.m1Dir.value(1) 
@@ -101,3 +101,4 @@ class Motor:
             self.pwm1.duty_u16(int(65535*(r1*40*0.9)/100))
             self.m2Dir.value(1)
             self.pwm2.duty_u16(int(65535*(r2*40*1)/100))
+    """

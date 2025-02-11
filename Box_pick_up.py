@@ -9,6 +9,8 @@ motor = Motor()
 #qr_reader = QRCodeReader()
 line_following = LineFollowing()
 
+
+"""
 def box_pickup():
     print("Starting Box Pickup Sequence...")
     
@@ -56,10 +58,29 @@ def box_pickup():
     #Next destination is returned
     #next_destination = qr_code
     #return next_destination
+"""
 
-# Run the box pickup sequence
-motor.Actuator_down(speed = 100,duration = 6 )
 
-#box_pickup()
-    #motor.Reverse(50)
+def box_pickup2():
+    line_following.Rev_Follow_line2(100) # will reverse until a distance from the box, doing line following and adjusting
+    motor.off()
+    
+    #would read QR code here
+    #could have more adjustments here
+    
+    motor.Reverse()
+    while get_distance() > 20:
+        sleep(0.1)        
+    motor.off()
+    
+    motor.Actuator_up(speed = 50)
+    motor.Forward()
+    sleep(2) #to be adjusted in order to clear
+    
+    
+
+    
+    
+    
+    
     

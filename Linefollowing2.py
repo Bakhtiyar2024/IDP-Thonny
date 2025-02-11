@@ -16,7 +16,7 @@ class LineFollowing:
         
             
         
-    def Follow_line(self):
+    def Follow_line(self): #checks for junctions
         
         junction1 = self.junction1.value()
         junction2 = self.junction2.value()
@@ -42,10 +42,30 @@ class LineFollowing:
                     
             sleep(0.01)
                         
-        Motor.off()                                   
-                
-        sleep(0.01)
-        #break
+        Motor.off()
+    
+    
+    
+    """
+    def Follow_line2(self): #line following without junction detection to get out of depot
+        left_value = self.left_sensor.value()
+        right_value = self.right_sensor.value()
+            
+        
+        if left_value == 1 and right_value == 1: #Both sensors detect line
+            Motor.Forward()
+            
+        elif left_value == 1 and right_value == 0: #therefore off to the right of the line                
+            Motor.adjust_direction("left")
+            while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and ((self.junction1.value() or self.junction2.value()) ==0):
+                sleep(0.01)
+            
+        elif left_value == 0 and right_value == 1:
+            Motor.adjust_direction("right")
+            while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and ((self.junction1.value() or self.junction2.value()) ==0):
+                sleep(0.01)        
+    """ 
+        
         
          
          
@@ -85,7 +105,7 @@ class LineFollowing:
         
         
         
-        
+    """
     def Rev_Follow_line(self):
         
         junction1 = self.junction1.value()
@@ -115,5 +135,36 @@ class LineFollowing:
                         
         Motor.off()                
                             
-                
         sleep(0.01)
+    """
+        
+        
+        
+    def Rev_Follow_line2(self, d):
+        while get_distance() > d:
+            left_value = self.left_sensor.value()
+            right_value = self.right_sensor.value()
+            
+            if left_value and right_value == 1:
+                Motor.Reverse()
+            
+            else:
+                adjustments = 0
+                while adjustments < 3:
+                    left_value = self.left_sensor.value()
+                    right_value = self.right_sensor.value()
+                
+                    if left_value == 1:
+                        Motor.adjust_direction("left")
+                        while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1):
+                            sleep(0.01)
+                        adjustments += 1
+                    
+                    elif right_value == 1:
+                        Motor.adjust_direction("right")
+                        while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1):
+                            sleep(0.01)
+                        adjustments += 1
+                
+                
+                
