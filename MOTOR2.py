@@ -5,6 +5,8 @@ import time
 speed=100
 r2 = 1
 r1 = 0.9
+r1r = 1
+r2r = 0.97
 
 class Motor: 
     def __init__(self): 
@@ -23,18 +25,18 @@ class Motor:
         self.pwm3.freq(1000) 
         self.pwm3.duty_u16(0)
         
-        self.led = Pin(10, Pin.OUT)
+        self.led = Pin(10, Pin.IN)
         
     def off(self): 
         self.pwm1.duty_u16(0)
         self.pwm2.duty_u16(0)
         self.led.value(0)
         
-    def Reverse(self): 
+    def Reverse(self, speed=40): 
         self.m1Dir.value(1)                     # forward = 0 reverse = 1 motor 1 
-        self.pwm1.duty_u16(int(65535*40*r1/100))
+        self.pwm1.duty_u16(int(65535*speed*r1r/100))
         self.m2Dir.value(1)                     # forward = 0 reverse = 1 motor 1 
-        self.pwm2.duty_u16(int(65535*40*r2/100))
+        self.pwm2.duty_u16(int(65535*speed*r2r/100))
         self.led.value(1)
         # speed range 0-100 motor 1
         
@@ -59,15 +61,15 @@ class Motor:
         self.pwm2.duty_u16(int(65535*speed*r2/100))
         self.led.value(1)
     
-    def Actuator_up(self, speed, duration = 1):
-        self.m3Dir.value(0) 
+    def Actuator_up(self, speed, duration = 2):
+        self.m3Dir.value(1) 
         self.pwm3.duty_u16(int(65535*speed/100))
         time.sleep(duration)
         self.pwm3.duty_u16(0)
         self.led.value(1)
         
-    def Actuator_down(self, speed, duration = 1):
-        self.m3Dir.value(1) 
+    def Actuator_down(self, speed, duration = 2):
+        self.m3Dir.value(0) 
         self.pwm3.duty_u16(int(65535*speed/100))
         time.sleep(duration)
         self.pwm3.duty_u16(0)
@@ -89,7 +91,6 @@ class Motor:
             
     
     def rev_adjust_direction(self, turn):
-        self.led.value(1)
         if turn == "right":
             self.m1Dir.value(1) 
             self.pwm1.duty_u16(int(65535*(r1*40*1)/100))
@@ -100,5 +101,3 @@ class Motor:
             self.pwm1.duty_u16(int(65535*(r1*40*0.9)/100))
             self.m2Dir.value(1)
             self.pwm2.duty_u16(int(65535*(r2*40*1)/100))
-            
-
