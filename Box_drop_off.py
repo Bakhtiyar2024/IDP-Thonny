@@ -16,12 +16,10 @@ def box_drop_off(destination):
         box_drop_off.drop_count = 0  # Create the attribute the first time
 
     box_drop_off.drop_count += 1
-    print(f"Function called {box_drop_off.drop_count} times")
-    print("Starting Box Drop-Off Sequence...")
 
     # Move forward slowly until a T-junction is detected
+    motor.Reverse(speed=20)
     while not (line_following.junction1.value() or line_following.junction2.value()):
-        motor.Reverse(speed=20)
         time.sleep(0.1)  # Smooth movement
 
     motor.off()
@@ -32,15 +30,11 @@ def box_drop_off(destination):
     print("Box dropped off. Moving back...")
 
      # Reverse slowly until a T-junction is detected
+    motor.Forward(speed = 30)
     while not (line_following.junction1.value() or line_following.junction2.value()):
-        motor.Forward(speed = 30)
         time.sleep(0.1)
 
     motor.off()
-    print("Box drop-off sequence complete!")
-    
-    #rotate 180 degrees
-    line_following.turn(direction = 'cw', angle = 180)
     
     #fetching next destination
     if box_drop_off.drop_count < 4:
@@ -54,6 +48,5 @@ def box_drop_off(destination):
     
 
 
-# Run the box drop-off sequence
-if __name__ == "__main__":
-    box_drop_off()
+
+box_drop_off('A')

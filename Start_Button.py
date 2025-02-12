@@ -1,7 +1,6 @@
 from time import sleep
 from machine import Pin
 
-led = Pin(10, Pin.OUT)
 button = Pin(11, Pin.IN, Pin.PULL_DOWN)
 
 # Store button state globally

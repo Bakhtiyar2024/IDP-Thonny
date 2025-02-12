@@ -6,46 +6,37 @@ import time
 
 # Initialize Components
 motor = Motor()
-#qr_reader = QRCodeReader()
+qr_reader = QRCodeReader()
 line_following = LineFollowing()
 
 
-"""
+
 def box_pickup():
-    print("Starting Box Pickup Sequence...")
-    
-    # Move forward slowly until distance ~100mm
-    while get_distance() > 100:
-        motor.Reverse(speed=30)
-        time.sleep(0.1)  # Adjust for smooth movement
-    
-    motor.off()  # Stop the robot
-    print("Reached ~100mm. Attempting to read QR code...")
-    
+    line_following.Rev_Follow_line2(100) # will reverse until a distance from the box, doing line following and adjusting
+    motor.off()
+
     # Try reading QR code
     qr_code = None
-    """
+    
     while not qr_code:
         qr_code = qr_reader.read_qr_code()
         if qr_code:
-            print(f"QR Code Detected: {qr_code}")
+            continue
         else:
-            print("No QR code detected, retrying...")
-            time.sleep(0.5)
-    """
-    # Move forward slowly until distance ~20mm
+            time.sleep(0.5)  #retries
+            
+    motor.Reverse()
     while get_distance() > 20:
-        #line_following.Rev_Follow_line()
-        motor.Reverse(40)
-        time.sleep(0.1)
-    
+        sleep(0.1)        
     motor.off()
-    print("Reached ~20mm. Activating linear actuator...")
     
     # Activate linear actuator to lift the box
     motor.Actuator_up(speed = 50)  # Adjust duration as needed
     print("Box lifted. Moving back...")
 
+    motor.Forward()
+    sleep(2)
+    
     # Reverse slowly until a T-junction is detected
     while not (line_following.junction1.value() or line_following.junction2.value()):
         motor.Forward(speed = 30)
@@ -56,28 +47,11 @@ def box_pickup():
     
         
     #Next destination is returned
-    #next_destination = qr_code
-    #return next_destination
-"""
+    next_destination = qr_code
+    return next_destination
 
 
-def box_pickup2():
-    line_following.Rev_Follow_line2(100) # will reverse until a distance from the box, doing line following and adjusting
-    motor.off()
-    
-    #would read QR code here
-    #could have more adjustments here
-    
-    motor.Reverse()
-    while get_distance() > 20:
-        sleep(0.1)        
-    motor.off()
-    
-    motor.Actuator_up(speed = 50)
-    motor.Forward()
-    sleep(2) #to be adjusted in order to clear
-    
-    
+box_pickup()
 
     
     
