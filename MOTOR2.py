@@ -25,7 +25,7 @@ class Motor:
         self.pwm3.freq(1000) 
         self.pwm3.duty_u16(0)
         
-        self.led = Pin(10, Pin.IN)
+        self.led = Pin(10, Pin.OUT)
         
     def off(self): 
         self.pwm1.duty_u16(0)

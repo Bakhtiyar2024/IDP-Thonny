@@ -1,6 +1,7 @@
 from machine import Pin
 from time import sleep,ticks_ms
 from MOTOR import Motor
+from Infrared_distance_final import get_distance
 
 
 
@@ -89,16 +90,7 @@ class LineFollowing:
                 done = True
                 sleep(0.2)
             
-            if junction1 == 1 or junction2 == 1:
-                done = True
-                sleep(0.1)
-            
-                
-        
-        Motor.Forward()
-        sleep(0.5)
         Motor.off()
-        #break
         
         
         
@@ -147,24 +139,35 @@ class LineFollowing:
             
             if left_value and right_value == 1:
                 Motor.Reverse()
+                
+            elif left_value == 1 and right_value == 0:
+                    Motor.adjust_direction("right", speed = 80)
+                    while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1):
+                        sleep(0.01)
             
+            elif right_value == 1 and right_value == 0:
+                    Motor.adjust_direction("left", speed = 80)
+                    while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1):
+                        sleep(0.01)
+            """
             else:
                 adjustments = 0
                 while adjustments < 3:
                     left_value = self.left_sensor.value()
                     right_value = self.right_sensor.value()
                 
-                    if left_value == 1:
+                    if left_value == 1 and right_value == 0:
                         Motor.adjust_direction("left")
                         while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1):
                             sleep(0.01)
                         adjustments += 1
                     
-                    elif right_value == 1:
+                    elif right_value == 1 and right_value == 0:
                         Motor.adjust_direction("right")
                         while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1):
                             sleep(0.01)
                         adjustments += 1
+            """
                 
                 
                 

@@ -11,7 +11,9 @@ time.sleep(1)
 devices = i2c.scan()
 
 # Check and print results
+"""
 if devices:
     print("I2C devices found at addresses:", [hex(device) for device in devices])
 else:
     print("No I2C devices found. Check wiring!")
+"""

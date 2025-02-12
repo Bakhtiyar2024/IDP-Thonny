@@ -13,7 +13,7 @@ location_routes_from_depot_1 = {
 }
 
 location_routes_from_depot_2 = {
-    "A": ["r", "l", "scw"],
+    "A": ["r", "l", "l", "f"],
     "B": ["s", "r", "s", "l"],
     "C": ["s", "r","l","r"],
     "D": ["s","s","r","s","l"]   

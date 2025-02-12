@@ -35,7 +35,7 @@ class QRCodeReader:
     def _check_device(self):
         """ Scans for I2C devices and ensures the QR reader is connected. """
         devices = self.i2c.scan()
-        print("I2C devices found:", [hex(dev) for dev in devices])
+        #print("I2C devices found:", [hex(dev) for dev in devices])
         
         if self.address not in devices:
             raise Exception("Error: QR Code Reader NOT detected! Check wiring.")
@@ -64,26 +64,29 @@ class QRCodeReader:
             return decoded_message[0] if decoded_message else None
 
         except UnicodeDecodeError:
-            print("Error: Unable to decode message. Check if it’s valid UTF-8.")
+            #print("Error: Unable to decode message. Check if it’s valid UTF-8.")
             return None
         except OSError as e:
-            print("I2C Read Error:", e)
+            #print("I2C Read Error:", e)
             return None
         
 
 def main():
     try:
         qr_reader = QRCodeReader()  # Initialize the QR code reader
-        print("QR Code Reader initialized successfully.")
+        #print("QR Code Reader initialized successfully.")
 
         while True:
             qr_code = qr_reader.read_qr_code()
             if qr_code:
-                print(f"QR Code Detected: {qr_code}")
+                #print(f"QR Code Detected: {qr_code}")
+                sleep(0.1)
             else:
-                print("No QR Code detected.")
+                #print("No QR Code detected.")
+                sleep(0.1)
     except Exception as e:
-        print("Error:", e)
+        #print("Error:", e)
+        sleep(0.1)
 
 if __name__ == "__main__":
     main()
