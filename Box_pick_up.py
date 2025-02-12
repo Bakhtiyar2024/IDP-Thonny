@@ -3,7 +3,7 @@ from QRCode_Reader import QRCodeReader
 from MOTOR import Motor
 from Linefollowing import LineFollowing
 import time
-import LinearActuatorSetup
+from LinearActuatorSetup import LinearActuatorSetup
 
 # Initialize Components
 motor = Motor()
@@ -51,9 +51,9 @@ def box_pickup():
     time.sleep(2)
     
     # Reverse slowly until a T-junction is detected
-    while not (line_following.junction1.value() or line_following.junction2.value()):
-        motor.Forward(speed = 30)
-        time.sleep(0.1)
+  #  while not (line_following.junction1.value() or line_following.junction2.value()):
+   #     motor.Forward(speed = 30)
+    #    time.sleep(0.1)
     
     motor.off()
     print("T-Junction detected. Box pickup sequence complete!")
@@ -64,7 +64,6 @@ def box_pickup():
     return next_destination
 
 
-box_pickup()
 
     
     

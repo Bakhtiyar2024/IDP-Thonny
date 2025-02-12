@@ -15,5 +15,5 @@ def LinearActuatorSetup():
         motor.Actuator_down(speed = 100)
         print(i+1)
 
-LinearActuatorSetup()
+#LinearActuatorSetup()
     

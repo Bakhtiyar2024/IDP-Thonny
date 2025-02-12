@@ -1,5 +1,5 @@
 from machine import Pin
-from time import sleep,ticks_ms
+from time import sleep,ticks_ms, time
 from MOTOR import Motor
 from Infrared_distance_final import get_distance
 
@@ -47,25 +47,28 @@ class LineFollowing:
     
     
     
-    """
-    def Follow_line2(self): #line following without junction detection to get out of depot
-        left_value = self.left_sensor.value()
-        right_value = self.right_sensor.value()
+    def Follow_line2(self, duration): #line following without junction detection to get out of depot
+        start_time = time()
+        while time() - start_time < duration:
+            left_value = self.left_sensor.value()
+            right_value = self.right_sensor.value()
+                
             
-        
-        if left_value == 1 and right_value == 1: #Both sensors detect line
-            Motor.Forward()
+            if left_value == 1 and right_value == 1: #Both sensors detect line
+                Motor.Forward(50)
+                
+            elif left_value == 1 and right_value == 0: #therefore off to the right of the line                
+                Motor.adjust_direction("left", 50)
+                while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and (time() - start_time < duration) :
+                    sleep(0.01)
+                
+            elif left_value == 0 and right_value == 1 :
+                Motor.adjust_direction("right", 50)
+                while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and (time() - start_time < duration) :
+                    sleep(0.01)
+            sleep(0.01)
             
-        elif left_value == 1 and right_value == 0: #therefore off to the right of the line                
-            Motor.adjust_direction("left")
-            while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and ((self.junction1.value() or self.junction2.value()) ==0):
-                sleep(0.01)
-            
-        elif left_value == 0 and right_value == 1:
-            Motor.adjust_direction("right")
-            while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and ((self.junction1.value() or self.junction2.value()) ==0):
-                sleep(0.01)        
-    """ 
+        Motor.off()    
         
         
          
@@ -73,11 +76,11 @@ class LineFollowing:
     def turn(self, direction, angle):#
         if direction == "cw":
             Motor.cw_spin(50)
-            sleep(0.015 * angle)
+            sleep(0.017 * angle)
                 
         elif direction == "acw":
             Motor.acw_spin(50)
-            sleep(0.015 * angle)
+            sleep(0.017 * angle)
         
         done = False
         while done ==False:
