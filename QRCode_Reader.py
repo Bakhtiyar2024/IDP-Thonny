@@ -79,10 +79,10 @@ def main():
         while True:
             qr_code = qr_reader.read_qr_code()
             if qr_code:
-                #print(f"QR Code Detected: {qr_code}")
+                print(f"QR Code Detected: {qr_code}")
                 sleep(0.1)
             else:
-                #print("No QR Code detected.")
+                print("No QR Code detected.")
                 sleep(0.1)
     except Exception as e:
         #print("Error:", e)
