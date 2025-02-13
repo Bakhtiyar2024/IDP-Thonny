@@ -11,9 +11,7 @@ def LinearActuatorSetup():
         
     start_time = time.time()  # Start time
 
-    for i in range(1):
-        motor.Actuator_down(speed = 100 , duration = 2.2)
-        print(i+1)
+    motor.Actuator_down(speed = 100 , duration = 2.2)
     return
 
 #LinearActuatorSetup()

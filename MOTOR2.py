@@ -6,7 +6,7 @@ speed=100
 r2 = 1
 r1 = 0.97
 r1r = 1
-r2r = 0.9
+r2r = 1
 
 class Motor: 
     def __init__(self): 

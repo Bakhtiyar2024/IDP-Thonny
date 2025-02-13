@@ -41,8 +41,7 @@ class LineFollowing:
                 while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and ((self.junction1.value() or self.junction2.value()) ==0):
                     sleep(0.01)
                     
-            sleep(0.01)
-                        
+        sleep(0.1)                    
         Motor.off()
     
     
@@ -70,7 +69,9 @@ class LineFollowing:
             
         Motor.off()    
         
-    def Follow_line3(self, distance):
+        
+        
+    def Follow_line3(self, distance): # line following until distance
         while get_distance() > distance:
             left_value = self.left_sensor.value()
             right_value = self.right_sensor.value()
@@ -97,6 +98,7 @@ class LineFollowing:
          
          
     def turn(self, direction, angle):#
+        print("in turn")
         if direction == "acw":
             Motor.cw_spin(50)
             sleep(0.017 * angle)
@@ -113,10 +115,16 @@ class LineFollowing:
             
             if left_value == 1 or right_value == 1: #Both sensors detect line
                 sleep(0.3)
-                done = True
-                
+                done = True                
             
         Motor.off()
+        
+        
+    
+        
+        
+        
+        
         
         
         
@@ -154,10 +162,10 @@ class LineFollowing:
         Motor.off()                
                             
         sleep(0.01)
-    """
+    
         
         
-        
+    
     def Rev_Follow_line2(self, d):
         while get_distance() > d:
             left_value = self.left_sensor.value()
@@ -175,7 +183,7 @@ class LineFollowing:
                     Motor.adjust_direction("left", speed = 80)
                     while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1):
                         sleep(0.01)
-            """
+            
             else:
                 adjustments = 0
                 while adjustments < 3:
