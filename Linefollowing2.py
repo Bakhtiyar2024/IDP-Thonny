@@ -9,8 +9,8 @@ Motor = Motor()
 class LineFollowing:
     
     def __init__(self):
-        self.left_sensor = Pin(22, Pin.IN)
-        self.right_sensor = Pin(28, Pin.IN)
+        self.left_sensor = Pin(28, Pin.IN)
+        self.right_sensor = Pin(22, Pin.IN)
         self.junction1 = Pin(27, Pin.IN)
         self.junction2 = Pin(26, Pin.IN)
         
@@ -70,15 +70,38 @@ class LineFollowing:
             
         Motor.off()    
         
+    def Follow_line3(self, distance):
+        while get_distance() > distance:
+            left_value = self.left_sensor.value()
+            right_value = self.right_sensor.value()
+                
+            
+            if left_value == 1 and right_value == 1: #Both sensors detect line
+                Motor.Forward(40)
+                
+            elif left_value == 1 and right_value == 0: #therefore off to the right of the line                
+                Motor.adjust_direction("left", 50)
+                while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and (get_distance() > distance) :
+                    sleep(0.01)
+                
+            elif left_value == 0 and right_value == 1 :
+                Motor.adjust_direction("right", 50)
+                while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and (get_distance() > distance) :
+                    sleep(0.01)
+            sleep(0.01)
+            
+        Motor.off()    
+        
+    
         
          
          
     def turn(self, direction, angle):#
-        if direction == "cw":
+        if direction == "acw":
             Motor.cw_spin(50)
             sleep(0.017 * angle)
                 
-        elif direction == "acw":
+        elif direction == "cw":
             Motor.acw_spin(50)
             sleep(0.017 * angle)
         
@@ -86,12 +109,12 @@ class LineFollowing:
         while done ==False:
             left_value = self.left_sensor.value()
             right_value = self.right_sensor.value()
-            junction1 = self.junction1.value()
-            junction2 = self.junction2.value()
+            
             
             if left_value == 1 or right_value == 1: #Both sensors detect line
+                sleep(0.3)
                 done = True
-                sleep(0.2)
+                
             
         Motor.off()
         

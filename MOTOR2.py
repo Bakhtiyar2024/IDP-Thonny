@@ -4,9 +4,9 @@ import time
 
 speed=100
 r2 = 1
-r1 = 0.9
+r1 = 0.97
 r1r = 1
-r2r = 0.97
+r2r = 0.9
 
 class Motor: 
     def __init__(self): 
@@ -33,31 +33,31 @@ class Motor:
         self.led.value(0)
         
     def Reverse(self, speed=40): 
-        self.m1Dir.value(1)                     # forward = 0 reverse = 1 motor 1 
+        self.m1Dir.value(0)                     # forward = 0 reverse = 1 motor 1 
         self.pwm1.duty_u16(int(65535*speed*r1r/100))
-        self.m2Dir.value(1)                     # forward = 0 reverse = 1 motor 1 
+        self.m2Dir.value(0)                     # forward = 0 reverse = 1 motor 1 
         self.pwm2.duty_u16(int(65535*speed*r2r/100))
         self.led.value(1)
         # speed range 0-100 motor 1
         
     def Forward(self, speed = 100): 
-        self.m1Dir.value(0) 
-        self.pwm1.duty_u16(int(65535*speed*r1/100))
-        self.m2Dir.value(0) 
-        self.pwm2.duty_u16(int(65535*speed*r2/100))
-        self.led.value(1)
-        
-    def acw_spin(self, speed): 
-        self.m1Dir.value(0) 
+        self.m1Dir.value(1) 
         self.pwm1.duty_u16(int(65535*speed*r1/100))
         self.m2Dir.value(1) 
         self.pwm2.duty_u16(int(65535*speed*r2/100))
         self.led.value(1)
         
-    def cw_spin(self, speed): 
+    def acw_spin(self, speed): 
         self.m1Dir.value(1) 
         self.pwm1.duty_u16(int(65535*speed*r1/100))
         self.m2Dir.value(0) 
+        self.pwm2.duty_u16(int(65535*speed*r2/100))
+        self.led.value(1)
+        
+    def cw_spin(self, speed): 
+        self.m1Dir.value(0) 
+        self.pwm1.duty_u16(int(65535*speed*r1/100))
+        self.m2Dir.value(1) 
         self.pwm2.duty_u16(int(65535*speed*r2/100))
         self.led.value(1)
     
@@ -79,14 +79,14 @@ class Motor:
     def adjust_direction(self, turn, speed=100):
         self.led.value(1)
         if turn == "left":
-            self.m1Dir.value(0) 
+            self.m1Dir.value(1) 
             self.pwm1.duty_u16(int(65535*speed*r1/100))
-            self.m2Dir.value(0) 
-            self.pwm2.duty_u16(int(65535*(speed*r2*0.85)/100))
+            self.m2Dir.value(1) 
+            self.pwm2.duty_u16(int(65535*(speed*r2*0.75)/100))
         elif turn == "right":
-            self.m1Dir.value(0)
-            self.pwm1.duty_u16(int(65535*(speed*r1*0.85)/100))
-            self.m2Dir.value(0)
+            self.m1Dir.value(1)
+            self.pwm1.duty_u16(int(65535*(speed*r1*0.75)/100))
+            self.m2Dir.value(1)
             self.pwm2.duty_u16(int(65535*speed*r2/100))
             
     """

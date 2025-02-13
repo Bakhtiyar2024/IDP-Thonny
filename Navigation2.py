@@ -11,7 +11,7 @@ LF = LineFollowing()
 Motor = Motor()
 
 #path = ["r", "s", "s", "l", "l", "s", "r", "s", "l", "l", "s", "f"]
-
+path = ["r", "l"]
 #O_to_1 = []
 #1_to_a = []
 #1_to_b = []
@@ -25,13 +25,23 @@ def navigation(path):
             if step == "r":
                 LF.turn("cw", 90)
                 Motor.Forward()
-                LF.Follow_line2(1)
+                LF.Follow_line2(2)
 
+                
             elif step == "l":
                 LF.turn("acw", 90)
-                LF.Follow_line2(1)
+                LF.Follow_line2(2)
+
                 Motor.off()
-                              
+                
+            elif step == "scw":
+                LF.turn("cw", 180)
+                #LF.Follow_line2(1)
+
+                Motor.off()
+                completed = True
+
+                
             elif step == "s":
                 Motor.Forward()
                 sleep(0.5) #just so we have passed the junction
@@ -56,7 +66,7 @@ def navigation(path):
 
 
 #sleep(1)
-#navigation(location_routes_from_start["Depot1"])
+
 #LF.Follow_line2(3)
 #Motor.Reverse()
 

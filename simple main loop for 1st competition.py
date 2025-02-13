@@ -11,13 +11,14 @@ from Linefollowing import LineFollowing
 LF = LineFollowing()
 Motor = Motor()
 
+#while True:
+ #   LF.Follow_line()
 
 
 Motor.Forward()
 sleep(2)
 navigation(location_routes_from_start["Depot1"])
 while True:
-    LF.Follow_line2(2)
     next1 = box_pickup()
     navigation(location_routes_from_depot_1[next1])
     sleep(1)

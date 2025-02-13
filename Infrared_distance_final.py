@@ -2,14 +2,14 @@
 from machine import Pin, I2C
 from vl53l0x import VL53L0X
 
-print("setting up i2c")
+#print("setting up i2c")
 sda = Pin(18)
 scl = Pin(19)
 id = 1
 
 i2c = I2C(id=id, sda=sda, scl=scl)
 
-print(i2c.scan())
+#print(i2c.scan())
 
 # print("creating vl53lox object")
 # Create a VL53L0X object
@@ -20,7 +20,7 @@ tof = VL53L0X(i2c)
 
 # the measuting_timing_budget is a value in ms, the longer the budget, the more accurate the reading.
 budget = tof.measurement_timing_budget_us
-print("Budget was:", budget)
+#print("Budget was:", budget)
 tof.set_measurement_timing_budget(40000)
 
 # Sets the VCSEL (vertical cavity surface emitting laser) pulse period for the
@@ -41,5 +41,5 @@ def get_distance():
     return tof.ping() - 50
 
 
-while True:
-    print(tof.ping()-50, "mm")
+#while True:
+ #   print(tof.ping()-50, "mm")

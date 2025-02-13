@@ -1,7 +1,7 @@
 
 # Dictionary to store predefined routes
 location_routes_from_start = {
-    "Depot1" : ["r", "lf"],
+    "Depot1" : ["r", "rf"],
     "Depot2" : ["l", "r"]
     
 }
