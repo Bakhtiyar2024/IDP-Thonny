@@ -61,7 +61,7 @@ class Motor:
         self.pwm2.duty_u16(int(65535*speed*r2/100))
         self.led.value(1)
     
-    def Actuator_up(self, speed, duration = 2):
+    def Actuator_up(self, speed, duration = 2.4):
         self.m3Dir.value(1) 
         self.pwm3.duty_u16(int(65535*speed/100))
         time.sleep(duration)
@@ -86,6 +86,11 @@ class Motor:
         elif turn == "right":
             self.m1Dir.value(1)
             self.pwm1.duty_u16(int(65535*(speed*r1*0.75)/100))
+            self.m2Dir.value(1)
+            self.pwm2.duty_u16(int(65535*speed*r2/100))
+        elif turn == "none":
+            self.m1Dir.value(1)
+            self.pwm1.duty_u16(int(65535*(speed*r1)/100))
             self.m2Dir.value(1)
             self.pwm2.duty_u16(int(65535*speed*r2/100))
             

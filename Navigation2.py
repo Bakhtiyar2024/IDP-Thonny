@@ -20,7 +20,7 @@ def navigation(path):
     completed = False
     while completed == False:
         for step in path:
-            LF.Follow_line() #will continue until junction is met
+            adjust = LF.Follow_line() #will continue until junction is met
         
             if step == "r":
                 LF.turn("cw", 90)
@@ -30,7 +30,7 @@ def navigation(path):
                 
             elif step == "l":
                 LF.turn("acw", 90)
-                LF.Follow_line2(2)
+                LF.Follow_line2(2, 100)
 
                 Motor.off()
                 
@@ -42,8 +42,14 @@ def navigation(path):
                 completed = True
 
                 
+            elif step == "fs":
+                #LF.Follow_line2(2, 100)
+                Motor.adjust_direction(adjust)
+                sleep(1) #just so we have passed the junction
+            
             elif step == "s":
-                Motor.Forward()
+                #LF.Follow_line2(2, 100)
+                Motor.adjust_direction(adjust)
                 sleep(0.5) #just so we have passed the junction
             
             elif step == "lf":

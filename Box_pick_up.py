@@ -12,7 +12,7 @@ LF = LineFollowing()
 
 
 
-def box_pickup(n=4):
+def box_pickup(n=1):
     LF.Follow_line3(260)
     #while get_distance() > 260:
         #motor.Reverse()
@@ -38,7 +38,7 @@ def box_pickup(n=4):
     motor.off()
             
  
-    LF.Follow_line3(5)
+    LF.Follow_line3(10)
 
     #while get_distance() > 10:
      #   time.sleep(0.1)
@@ -60,7 +60,7 @@ def box_pickup(n=4):
     right_value = 0
     
     motor.cw_spin(50)
-    sleep(0.5)
+    sleep(1)
     
     
     done = False
@@ -68,19 +68,19 @@ def box_pickup(n=4):
         left_value = LF.left_sensor.value()
         right_value = LF.right_sensor.value()
         
-        if left_value == 1 or right_value == 1: #Both sensors detect line
-            sleep(0.3)
+        if left_value == 1 and right_value == 1: #Both sensors detect line
+            #sleep(0.3)
             done = True
             
     motor.off()
-    
+    LF.Follow_line2(1.5)
         
     #Next destination is returned
     next_destination = qr_code
     return next_destination
 
 
-
+#box_pickup()
     
     
     

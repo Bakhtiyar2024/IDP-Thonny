@@ -7,16 +7,16 @@ location_routes_from_start = {
 }
 location_routes_from_depot_1 = {
     "A": ["l", "s", "rf"],
-    "B": ["s", "l", "lf"],
-    "C": ["s", "l","s","r","lf"],
-    "D": ["s","s","l","lf"]
+    "B": ["fs", "l", "lf"],
+    "C": ["fs", "l","s","r","lf"],
+    "D": ["fs","s","l","lf"]
 }
 
 location_routes_to_depot_1 = {
-    "A": ["l", "s", "lf"],
-    "B": ["r", "r", "lf"],
-    "C": ["r", "l","s","r","lf"],
-    "D": ["r","r","s","lf"]
+    "A": ["l", "s", "rf"],
+    "B": ["r", "r", "f"],
+    "C": ["r", "l","s","r","f"],
+    "D": ["r","r","s","f"]
 }
 
 location_routes_from_depot_2 = {

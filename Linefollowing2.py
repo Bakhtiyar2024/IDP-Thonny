@@ -21,7 +21,7 @@ class LineFollowing:
         
         junction1 = self.junction1.value()
         junction2 = self.junction2.value()
-        
+        adjust = "none"
         while (junction1 or junction2) == 0 :
             junction1 = self.junction1.value()
             junction2 = self.junction2.value()
@@ -30,23 +30,27 @@ class LineFollowing:
             
             if left_value == 1 and right_value == 1: #Both sensors detect line
                 Motor.Forward()
+                adjust = "none"
                 
             elif left_value == 1 and right_value == 0: #therefore off to the right of the line                
                 Motor.adjust_direction("left")
+                adjust = "left"
                 while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and ((self.junction1.value() or self.junction2.value()) ==0):
                     sleep(0.01)
                 
             elif left_value == 0 and right_value == 1:
                 Motor.adjust_direction("right")
+                adjust = "right"
                 while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and ((self.junction1.value() or self.junction2.value()) ==0):
                     sleep(0.01)
                     
         sleep(0.1)                    
         Motor.off()
+        return adjust
     
     
     
-    def Follow_line2(self, duration): #line following without junction detection to get out of depot
+    def Follow_line2(self, duration, speed = 50): #line following without junction detection to get out of depot
         start_time = time()
         while time() - start_time < duration:
             left_value = self.left_sensor.value()
@@ -54,15 +58,15 @@ class LineFollowing:
                 
             
             if left_value == 1 and right_value == 1: #Both sensors detect line
-                Motor.Forward(50)
+                Motor.Forward(speed)
                 
             elif left_value == 1 and right_value == 0: #therefore off to the right of the line                
-                Motor.adjust_direction("left", 50)
+                Motor.adjust_direction("left", speed)
                 while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and (time() - start_time < duration) :
                     sleep(0.01)
                 
             elif left_value == 0 and right_value == 1 :
-                Motor.adjust_direction("right", 50)
+                Motor.adjust_direction("right", speed)
                 while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and (time() - start_time < duration) :
                     sleep(0.01)
             sleep(0.01)
@@ -114,7 +118,7 @@ class LineFollowing:
             
             
             if left_value == 1 or right_value == 1: #Both sensors detect line
-                sleep(0.3)
+                sleep(0.4)
                 done = True                
             
         Motor.off()
