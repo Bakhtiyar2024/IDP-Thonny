@@ -48,8 +48,7 @@ def box_drop_off():
     #motor.Reverse(speed=40)
     #while not (line_following.junction1.value() and line_following.junction2.value()):
     #    time.sleep(0.1)  # Smooth movement
-
-    motor.off()
+ 
    # print("T-Junction detected. Lowering the box...")
 
     # Activate linear actuator to lower the box

@@ -19,7 +19,6 @@ def box_pickup(n=1):
         
     sleep(0.1)        
     
-    LinearActuatorSetup()
     #line_following.Rev_Follow_line2(265) # will reverse until a distance from the box, doing line following and adjusting
     motor.off()
 
@@ -33,25 +32,14 @@ def box_pickup(n=1):
         else:
             sleep(0.5)  #retries
             
-    motor.Forward(0.1)
-    sleep(1)
-    motor.off()
-            
  
     LF.Follow_line3(10)
 
-    #while get_distance() > 10:
-     #   time.sleep(0.1)
-    sleep(0.1)
-    motor.off()
     
     # Activate linear actuator to lift the box
     motor.Actuator_up(speed = 100)  # Adjust duration as needed
     #print("Box lifted. Moving back...")
     
-    
-    
-    motor.off()
     motor.Reverse(50)
     sleep(0.65*n)
     motor.off()
