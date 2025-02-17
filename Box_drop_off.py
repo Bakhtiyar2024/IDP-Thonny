@@ -19,11 +19,11 @@ def box_drop_off():
         box_drop_off.drop_count = 0  # Create the attribute the first time
 
     box_drop_off.drop_count += 1"""
-    line_following.Follow_line2(2) #Enter a bit and do a 180 turn so line detectors clear the entrance junction
+    line_following.Follow_line2(1, 100) #Enter a bit and do a 180 turn so line detectors clear the entrance junction
     line_following.Follow_line()
     LinearActuatorSetup()
     motor.Reverse(50)
-    sleep(0.65)
+    sleep(1.5)
     motor.off()
     left_value = 0
     right_value = 0
@@ -64,7 +64,7 @@ def box_drop_off():
     while not (line_following.junction1.value() or line_following.junction2.value()):
         time.sleep(0.1)"""
 
-    motor.off()
+    #motor.off()
     """
     #fetching next destination
     if box_drop_off.drop_count < 4:
@@ -76,7 +76,14 @@ def box_drop_off():
         combined_route = reversed_route.append([r, l])
         return combined_route
     """
+    """
+while True:
+    motor.Actuator_up(speed = 100)  # Adjust duration as needed
 
-
-
-#box_drop_off()
+    line_following.Follow_line()
+    line_following.turn("cw", 90)
+    motor.off()
+    completed = True
+    box_drop_off()
+    sleep(3)
+"""
