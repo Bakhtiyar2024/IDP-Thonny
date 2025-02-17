@@ -20,10 +20,18 @@ def box_drop_off():
 
     box_drop_off.drop_count += 1"""
     line_following.Follow_line2(1, 100) #Enter a bit and do a 180 turn so line detectors clear the entrance junction
-    line_following.Follow_line()
+    line_following.Follow_line(70)
     LinearActuatorSetup()
-    motor.Reverse(50)
-    sleep(1.5)
+    motor.Reverse()
+    sleep(2)
+    '''j1 = 0
+    j2 = 0
+    while j1 and j2 == 0:
+        j1 = line_following.junction1.value()
+        j2 = line_following.junction2.value()
+    '''
+    
+    #sleep(1.5)
     motor.off()
     left_value = 0
     right_value = 0
@@ -42,7 +50,7 @@ def box_drop_off():
             done = True
             
     motor.off()
-    line_following.Follow_line2(2)
+    #line_following.Follow_line2(2)
 
     # Move forward slowly until a T-junction is detected
     #motor.Reverse(speed=40)
@@ -75,14 +83,12 @@ def box_drop_off():
         combined_route = reversed_route.append([r, l])
         return combined_route
     """
-    """
-while True:
+    
+"""while True:
     motor.Actuator_up(speed = 100)  # Adjust duration as needed
 
     line_following.Follow_line()
     line_following.turn("cw", 90)
     motor.off()
-    completed = True
     box_drop_off()
-    sleep(3)
-"""
+    sleep(3)"""

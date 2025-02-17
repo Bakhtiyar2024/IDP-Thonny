@@ -25,7 +25,7 @@ def navigation(path):
             if step == "r":
                 LF.turn("cw", 90)
                 Motor.Forward()
-                LF.Follow_line2(2)
+                LF.Follow_line2(2, 100)
 
                 
             elif step == "l":
@@ -43,14 +43,16 @@ def navigation(path):
 
                 
             elif step == "fs":
+                LF.Follow_line2(1, 100)
                 #LF.Follow_line2(2, 100)
-                Motor.adjust_direction(adjust)
-                sleep(1) #just so we have passed the junction
+                #Motor.adjust_direction(adjust)
+                #sleep(0.5) #just so we have passed the junction
             
             elif step == "s":
+                LF.Follow_line2(1, 100)
                 #LF.Follow_line2(2, 100)
-                Motor.adjust_direction(adjust)
-                sleep(0.5) #just so we have passed the junction
+                #Motor.adjust_direction(adjust)
+                #sleep(0.5) #just so we have passed the junction
             
             elif step == "lf":
                 LF.turn("acw", 90)
@@ -70,7 +72,9 @@ def navigation(path):
             
 #from Location_Routes import location_routes_from_start, reverse_route, location_routes_from_depot_1, location_routes_from_depot_2
 
-
+#while True:
+ #   navigation(path)
+    
 #sleep(1)
 
 #LF.Follow_line2(3)

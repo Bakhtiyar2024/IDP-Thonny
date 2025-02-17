@@ -20,12 +20,18 @@ location_routes_to_depot_1 = {
 }
 
 location_routes_from_depot_2 = {
-    "A": ["r", "l", "l", "f"],
-    "B": ["s", "r", "s", "l"],
-    "C": ["s", "r","l","r"],
-    "D": ["s","s","r","s","l"]   
+    "A": ["r", "l", "lf"],
+    "B": ["s", "r", "s", "rf"],
+    "C": ["s", "r","l","lf"],
+    "D": ["s","s","r","s","rf"]   
 }
 
+location_routes_to_depot_2 = {
+    "A": ["r", "l", "lf"],
+    "B": ["s", "r", "s", "rf"],
+    "C": ["s", "r","l","lf"],
+    "D": ["s","s","r","s","rf"]   
+}
 # Function to reverse a route
 def reverse_route(route):
     reverse_map = {"l": "r", "r": "l", "s": "s"}

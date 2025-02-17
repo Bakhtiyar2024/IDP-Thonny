@@ -2,10 +2,13 @@ from machine import Pin
 from time import sleep,ticks_ms, time
 from MOTOR import Motor
 from Infrared_distance_final import get_distance
+from QRCode_Reader import QRCodeReader
 
 
 
 Motor = Motor()
+qr_reader = QRCodeReader()
+
 class LineFollowing:
     
     def __init__(self):
@@ -17,7 +20,7 @@ class LineFollowing:
         
             
         
-    def Follow_line(self): #checks for junctions
+    def Follow_line(self, speed=100): #checks for junctions
         
         junction1 = self.junction1.value()
         junction2 = self.junction2.value()
@@ -29,22 +32,21 @@ class LineFollowing:
             right_value = self.right_sensor.value()
             
             if left_value == 1 and right_value == 1: #Both sensors detect line
-                Motor.Forward()
+                Motor.Forward(speed)
                 adjust = "none"
                 
             elif left_value == 1 and right_value == 0: #therefore off to the right of the line                
-                Motor.adjust_direction("left")
+                Motor.adjust_direction("left", speed)
                 adjust = "left"
                 while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and ((self.junction1.value() or self.junction2.value()) ==0):
                     sleep(0.01)
                 
             elif left_value == 0 and right_value == 1:
-                Motor.adjust_direction("right")
+                Motor.adjust_direction("right", speed)
                 adjust = "right"
                 while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and ((self.junction1.value() or self.junction2.value()) ==0):
                     sleep(0.01)
-                    
-        sleep(0.1)                    
+        sleep(0.1)           
         Motor.off()
         return adjust
     
@@ -95,7 +97,42 @@ class LineFollowing:
                     sleep(0.01)
             sleep(0.01)
             
-        Motor.off()    
+        Motor.off()
+        
+    def Follow_line4(self): # line following until distance
+        QR = None
+        i = 0
+        done = False
+        while done == False:
+            if i % 10 == 0:
+                QR = qr_reader.read_qr_code()
+                if QR:
+                    done = True
+                
+            
+            
+            left_value = self.left_sensor.value()
+            right_value = self.right_sensor.value()
+            
+            
+            if left_value == 1 and right_value == 1: #Both sensors detect line
+                Motor.Forward(40)
+                
+            elif left_value == 1 and right_value == 0: #therefore off to the right of the line                
+                Motor.adjust_direction("left", 50)
+                while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1)  :
+                    sleep(0.01)
+                
+            elif left_value == 0 and right_value == 1 :
+                Motor.adjust_direction("right", 50)
+                while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1)  :
+                    sleep(0.01)
+            sleep(0.02)
+            i+=1
+        return QR  
+        Motor.off()
+        
+    
         
     
         
@@ -118,8 +155,12 @@ class LineFollowing:
             
             
             if left_value == 1 or right_value == 1: #Both sensors detect line
-                sleep(0.4)
-                done = True                
+                done = True
+                
+        if direction == "cw":
+            sleep(0.5)
+        else:
+            sleep(0.3)
             
         Motor.off()
         

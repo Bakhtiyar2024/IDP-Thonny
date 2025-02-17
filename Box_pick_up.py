@@ -12,8 +12,8 @@ LF = LineFollowing()
 
 
 
-def box_pickup(n=1):
-    LF.Follow_line3(260)
+def box_pickup(n=4):
+    qr_code = LF.Follow_line4()
     #while get_distance() > 260:
         #motor.Reverse()
         
@@ -23,17 +23,17 @@ def box_pickup(n=1):
     motor.off()
 
     # Try reading QR code
-    qr_code = None
+    """qr_code = None
     
     while not qr_code:
         qr_code = qr_reader.read_qr_code()
         if qr_code:
             continue
         else:
-            sleep(0.5)  #retries
+            sleep(0.5)  #retries"""
             
  
-    LF.Follow_line3(10)
+    LF.Follow_line3(11)
 
     
     # Activate linear actuator to lift the box
@@ -41,7 +41,7 @@ def box_pickup(n=1):
     #print("Box lifted. Moving back...")
     
     motor.Reverse(50)
-    sleep(0.65*n)
+    sleep(0.68*n)
     motor.off()
     
     left_value = 0
@@ -57,11 +57,11 @@ def box_pickup(n=1):
         right_value = LF.right_sensor.value()
         
         if left_value == 1 and right_value == 1: #Both sensors detect line
-            #sleep(0.3)
+            #sleep(0.6)
             done = True
             
     motor.off()
-    LF.Follow_line2(1.5)
+    #LF.Follow_line2(1.5)
         
     #Next destination is returned
     next_destination = qr_code
