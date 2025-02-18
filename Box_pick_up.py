@@ -33,7 +33,7 @@ def box_pickup(n=4):
             sleep(0.5)  #retries"""
             
  
-    LF.Follow_line3(11)
+    LF.Follow_line3(7)
 
     
     # Activate linear actuator to lift the box

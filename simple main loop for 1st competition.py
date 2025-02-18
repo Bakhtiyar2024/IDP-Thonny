@@ -17,7 +17,7 @@ while True:
     left_value = 0
     right_value = 0
     
-    Motor.cw_spin(50)
+    Motor.cw_spin(50) 
     sleep(1)
     
     
@@ -37,7 +37,7 @@ while True:
    # sleep(2)
 
 LinearActuatorSetup()
-#Motor.Forward()
+Motor.Forward()
 sleep(2)
 navigation(location_routes_from_start["Depot1"])
 depot1 = True
@@ -45,14 +45,20 @@ boxes_from1 = 0
 while depot1 == True:
     next1 = box_pickup(boxes_from1)
     navigation(location_routes_from_depot_1[next1])
-    sleep(1)
+    sleep(0.5)
     box_drop_off()
     navigation(location_routes_to_depot_1[next1])
     boxes_from1 += 1
     if boxes_from1 > 3:
+        LF.turn("cw", 90)
+        Motor.Forward()
+        LF.Follow_line2(2, 100)
+        navigation(["lf"])
+        LF.Follow_line2(4, 100)
         depot1 = False
-        
-navigation(location_routes_to_depot_2[next1])
+    
+navigation(location_routes_to_start[next1])      
+"""navigation(location_routes_to_depot_2[next1])
 depot2 = True
 boxes_from2 = 0
 while depot2 == True:
@@ -63,7 +69,7 @@ while depot2 == True:
     navigation(location_routes_to_depot_1[next1])
     boxes_from1 += 1
     if boxes_from2 > 3:
-        depot2 = False
+        depot2 = False"""
 
 Motor.off()
         

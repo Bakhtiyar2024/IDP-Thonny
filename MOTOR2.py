@@ -68,7 +68,7 @@ class Motor:
         self.pwm3.duty_u16(0)
         self.led.value(1)
         
-    def Actuator_down(self, speed, duration = 2):
+    def Actuator_down(self, speed, duration = 2.2):
         self.m3Dir.value(0) 
         self.pwm3.duty_u16(int(65535*speed/100))
         time.sleep(duration)

@@ -84,15 +84,15 @@ class LineFollowing:
                 
             
             if left_value == 1 and right_value == 1: #Both sensors detect line
-                Motor.Forward(40)
+                Motor.Forward(60)
                 
             elif left_value == 1 and right_value == 0: #therefore off to the right of the line                
-                Motor.adjust_direction("left", 50)
+                Motor.adjust_direction("left", 70)
                 while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and (get_distance() > distance) :
                     sleep(0.01)
                 
             elif left_value == 0 and right_value == 1 :
-                Motor.adjust_direction("right", 50)
+                Motor.adjust_direction("right", 70)
                 while (self.left_sensor.value()!=1 or self.right_sensor.value() !=1) and (get_distance() > distance) :
                     sleep(0.01)
             sleep(0.01)

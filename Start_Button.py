@@ -1,21 +1,20 @@
-from time import sleep
-from machine import Pin
+import machine
+import time
 
-button = Pin(11, Pin.IN, Pin.PULL_DOWN)
+# Define the GPIO pin for the button
+BUTTON_PIN = 11
+button = machine.Pin(BUTTON_PIN, machine.Pin.IN, machine.Pin.PULL_UP)  # Pull-up resistor enabled
 
-# Store button state globally
-button_pressed = False
 
-def check_button():
-    global button_pressed  # Access global variable
 
-    if button.value() == 1:
-        #led.value(1)  # Turn LED on
-        sleep(0.5)  # Debounce delay
-        button_pressed = True  # Latch the button state
+def restart_script(pin):
+    """Immediately resets the Raspberry Pi Pico when the button is pressed."""
+    #print("Button pressed! Restarting now...")
+    time.sleep(0.2)  # Small delay to avoid bouncing
+    machine.reset()  # Hard reset the board
 
-    return 1 if button_pressed else 0  # Keep value at 1 after press
 
-"""while True:
-    print(button.value())
-    sleep(1)"""
+#print("Waiting for button press to start...")
+
+# Wait for the first button press to start
+

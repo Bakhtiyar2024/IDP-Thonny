@@ -21,7 +21,8 @@ def box_drop_off():
     box_drop_off.drop_count += 1"""
     line_following.Follow_line2(1, 100) #Enter a bit and do a 180 turn so line detectors clear the entrance junction
     line_following.Follow_line(70)
-    LinearActuatorSetup()
+    motor.Actuator_down(speed = 100)  # Adjust duration as needed
+
     motor.Reverse()
     sleep(2)
     '''j1 = 0
