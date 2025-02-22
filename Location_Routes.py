@@ -1,5 +1,5 @@
 
-# Dictionary to store predefined routes
+# Dictionary to store predefined routes based on turns
 location_routes_from_start = {
     "Depot1" : ["r", "rf"],
     "Depot2" : ["l", "r"]

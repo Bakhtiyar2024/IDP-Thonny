@@ -17,57 +17,49 @@ path = ["r", "l"]
 #1_to_b = []
 
 def navigation(path):
+    """Navigates the robot through a given path of steps."""
+    
     completed = False
-    while completed == False:
+    
+    while not completed:
         for step in path:
-            adjust = LF.Follow_line() #will continue until junction is met
+            # Follow the line until a junction is reached
+            adjust = LF.Follow_line() 
         
-            if step == "r":
+            if step == "r":  # Turn right at junction
                 LF.turn("cw", 90)
                 Motor.Forward()
                 LF.Follow_line2(2, 100)
 
-                
-            elif step == "l":
+            elif step == "l":  # Turn left at junction
                 LF.turn("acw", 90)
                 LF.Follow_line2(2, 100)
-
                 Motor.off()
                 
-            elif step == "scw":
+            elif step == "scw":  # Make a 180-degree clockwise turn
                 LF.turn("cw", 180)
-                #LF.Follow_line2(1)
-
                 Motor.off()
                 completed = True
 
-                
-            elif step == "fs":
+            elif step == "fs":  # Move forward slightly past junction
                 LF.Follow_line2(1, 100)
-                #LF.Follow_line2(2, 100)
-                #Motor.adjust_direction(adjust)
-                #sleep(0.5) #just so we have passed the junction
-            
-            elif step == "s":
+
+            elif step == "s":  # Move forward slightly
                 LF.Follow_line2(1, 100)
-                #LF.Follow_line2(2, 100)
-                #Motor.adjust_direction(adjust)
-                #sleep(0.5) #just so we have passed the junction
-            
-            elif step == "lf":
+
+            elif step == "lf":  # Turn left and stop
                 LF.turn("acw", 90)
                 Motor.off()
                 completed = True
-                
-            elif step == "rf":
+
+            elif step == "rf":  # Turn right and stop
                 LF.turn("cw", 90)
                 Motor.off()
                 completed = True
-                
-            elif step == "f":
+
+            elif step == "f":  # Stop navigation
                 Motor.off()
                 completed = True
-                #break
                 
             
 #from Location_Routes import location_routes_from_start, reverse_route, location_routes_from_depot_1, location_routes_from_depot_2

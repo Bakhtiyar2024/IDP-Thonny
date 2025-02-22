@@ -2,7 +2,7 @@ from MOTOR import Motor
 
 
 def LinearActuatorSetup():
-    
+    """General setup to bring actuator to the correct heght to pick up a box"""
     motor = Motor()
     
     motor.Actuator_up(speed = 100)

@@ -10,81 +10,41 @@ from LinearActuatorSetup import LinearActuatorSetup
 motor = Motor()
 line_following = LineFollowing()
 
-#def box_drop_off(destination):
 def box_drop_off():
+    """Follows a line, drops off the box, and repositions itself."""
 
-    """
-    #creating a global variable to keep count of deliveries
-    if not hasattr(box_drop_off, "drop_count"):
-        box_drop_off.drop_count = 0  # Create the attribute the first time
+    # Move forward slightly and do a 180-degree turn to clear entrance junction
+    line_following.Follow_line2(1, 100)
 
-    box_drop_off.drop_count += 1"""
-    line_following.Follow_line2(1, 100) #Enter a bit and do a 180 turn so line detectors clear the entrance junction
+    # Follow the line until a junction is detected
     line_following.Follow_line(70)
-    motor.Actuator_down(speed = 100)  # Adjust duration as needed
 
+    # Lower the actuator to drop the box
+    motor.Actuator_down(speed=100)
+
+    # Move backward for 2 seconds
     motor.Reverse()
     sleep(2)
-    '''j1 = 0
-    j2 = 0
-    while j1 and j2 == 0:
-        j1 = line_following.junction1.value()
-        j2 = line_following.junction2.value()
-    '''
-    
-    #sleep(1.5)
     motor.off()
+
     left_value = 0
     right_value = 0
-    
+
+    # Rotate clockwise for 1 second
     motor.cw_spin(50)
     sleep(1)
-    
-    
+
+    # Keep rotating until both sensors detect the line again
     done = False
-    while done ==False:
+    while not done:
         left_value = line_following.left_sensor.value()
         right_value = line_following.right_sensor.value()
         
-        if left_value == 1 and right_value == 1: #Both sensors detect line
-            #sleep(0.7)
+        if left_value == 1 and right_value == 1:
             done = True
             
     motor.off()
-    #line_following.Follow_line2(2)
-
-    # Move forward slowly until a T-junction is detected
-    #motor.Reverse(speed=40)
-    #while not (line_following.junction1.value() and line_following.junction2.value()):
-    #    time.sleep(0.1)  # Smooth movement
- 
-   # print("T-Junction detected. Lowering the box...")
-
-    # Activate linear actuator to lower the box
-    #motor.Actuator_down(speed = 50) # Adjust duration as needed
-    
-   # print("Box dropped off. Moving back...")
-
-     # Reverse slowly until a T-junction is detected
-    #motor.Forward(speed = 50)
-    """line_following.Follow_line2(2)
-    motor.Forward(50)
-    while not (line_following.junction1.value() or line_following.junction2.value()):
-        time.sleep(0.1)"""
-
-    #motor.off()
-    """
-    #fetching next destination
-    if box_drop_off.drop_count < 4:
-        return reverse_route(location_routes_from_depot_A[destination])
-    elif box_drop_off.drop_count == 4:
-        return reverse_route(location_routes_from_depot_B[destination])
-    elif box_drop_off.drop_count == 8:
-        reversed_route = reverse_route(location_routes_from_depot_B[destination])
-        combined_route = reversed_route.append([r, l])
-        return combined_route
-    """
-    
+   
 """while True:
     motor.Actuator_up(speed = 100)  # Adjust duration as needed
 

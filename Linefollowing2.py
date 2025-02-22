@@ -12,6 +12,8 @@ qr_reader = QRCodeReader()
 class LineFollowing:
     
     def __init__(self):
+        """Initialize sensors for line detection and junction detection."""
+
         self.left_sensor = Pin(28, Pin.IN)
         self.right_sensor = Pin(22, Pin.IN)
         self.junction1 = Pin(27, Pin.IN)
@@ -21,6 +23,8 @@ class LineFollowing:
             
         
     def Follow_line(self, speed=100): #checks for junctions
+        """Follows a line while until junctions."""
+
         
         junction1 = self.junction1.value()
         junction2 = self.junction2.value()
@@ -53,6 +57,8 @@ class LineFollowing:
     
     
     def Follow_line2(self, duration, speed = 50): #line following without junction detection to get out of depot
+        """Follows a line for a specific duration (ignores junctions)."""
+
         start_time = time()
         while time() - start_time < duration:
             left_value = self.left_sensor.value()
@@ -78,6 +84,8 @@ class LineFollowing:
         
         
     def Follow_line3(self, distance): # line following until distance
+        """Follows a line until a certain distance is reached."""
+
         while get_distance() > distance:
             left_value = self.left_sensor.value()
             right_value = self.right_sensor.value()
@@ -99,7 +107,9 @@ class LineFollowing:
             
         Motor.off()
         
-    def Follow_line4(self): # line following until distance
+    def Follow_line4(self): # line following until qr
+        """Follows a line until a QR code is detected."""
+
         QR = None
         i = 0
         done = False
@@ -138,11 +148,13 @@ class LineFollowing:
         
          
          
-    def turn(self, direction, angle):#
-        print("in turn")
+    def turn(self, direction, angle):
+        """Turns the robot in a specified direction for a given angle."""
+
+        #print("in turn")
         if direction == "acw":
             Motor.cw_spin(50)
-            sleep(0.017 * angle)
+            sleep(0.017 * angle) #gives time to turn until the line detectors have cleared the line its on and is about to reach its destination 
                 
         elif direction == "cw":
             Motor.acw_spin(50)
@@ -157,7 +169,7 @@ class LineFollowing:
             if left_value == 1 or right_value == 1: #Both sensors detect line
                 done = True
                 
-        if direction == "cw":
+        if direction == "cw":              # small offset after detection for alignment, this is different in each direction upon testing to find which offset works best in each direction
             sleep(0.5)
         else:
             sleep(0.3)

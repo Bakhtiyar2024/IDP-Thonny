@@ -13,59 +13,45 @@ LF = LineFollowing()
 
 
 def box_pickup(n=4):
-    qr_code = LF.Follow_line4()
-    #while get_distance() > 260:
-        #motor.Reverse()
-        
-    sleep(0.1)        
-    
-    #line_following.Rev_Follow_line2(265) # will reverse until a distance from the box, doing line following and adjusting
-    motor.off()
+    """Follows a line, picks up a box, and returns the next destination."""
 
-    # Try reading QR code
-    """qr_code = None
+    # Follow the line until a QR code is detected
+    qr_code = LF.Follow_line4()
     
-    while not qr_code:
-        qr_code = qr_reader.read_qr_code()
-        if qr_code:
-            continue
-        else:
-            sleep(0.5)  #retries"""
-            
- 
+    sleep(0.1)        
+    motor.off()
+         
+    # Continue following the line for 7 units of distance
     LF.Follow_line3(7)
 
-    
-    # Activate linear actuator to lift the box
-    motor.Actuator_up(speed = 100)  # Adjust duration as needed
-    #print("Box lifted. Moving back...")
-    
+    # Activate the linear actuator to lift the box
+    motor.Actuator_up(speed=100)  
+
+    # Move the robot in reverse for a certain duration based on `n` boxes
     motor.Reverse(50)
-    sleep(0.68*n)
+    sleep(0.68 * n)
     motor.off()
     
     left_value = 0
     right_value = 0
-    
+
+    # Rotate clockwise for 1 second
     motor.cw_spin(50)
     sleep(1)
     
-    
+    # Keep rotating until both sensors detect the line again
     done = False
-    while done ==False:
+    while not done:
         left_value = LF.left_sensor.value()
         right_value = LF.right_sensor.value()
         
-        if left_value == 1 and right_value == 1: #Both sensors detect line
-            #sleep(0.6)
+        if left_value == 1 and right_value == 1:
             done = True
             
     motor.off()
-    #LF.Follow_line2(1.5)
         
-    #Next destination is returned
-    next_destination = qr_code
-    return next_destination
+    # Return the detected QR code as the next destination
+    return qr_code
 
 
 #box_pickup()

@@ -23,76 +23,84 @@ class Motor:
         self.m3Dir = Pin(0 , Pin.OUT)         # actuator
         self.pwm3 = PWM(Pin(1))           
         self.pwm3.freq(1000) 
-        self.pwm3.duty_u16(0)
+        self.pwm3.duty_u16(0)           
         
-        self.led = Pin(10, Pin.OUT)
+        self.led = Pin(10, Pin.OUT)            #variable to control LED
         
-    def off(self): 
+    def off(self):                       #stop both wheels
         self.pwm1.duty_u16(0)
         self.pwm2.duty_u16(0)
         self.led.value(0)
         
     def Reverse(self, speed=40): 
-        self.m1Dir.value(0)                     # forward = 0 reverse = 1 motor 1 
-        self.pwm1.duty_u16(int(65535*speed*r1r/100))
-        self.m2Dir.value(0)                     # forward = 0 reverse = 1 motor 1 
-        self.pwm2.duty_u16(int(65535*speed*r2r/100))
-        self.led.value(1)
-        # speed range 0-100 motor 1
-        
-    def Forward(self, speed = 100): 
-        self.m1Dir.value(1) 
-        self.pwm1.duty_u16(int(65535*speed*r1/100))
-        self.m2Dir.value(1) 
-        self.pwm2.duty_u16(int(65535*speed*r2/100))
-        self.led.value(1)
-        
+    """Moves the robot in reverse at the given speed (default 40%)."""
+    self.m1Dir.value(0)  # Motor 1 reverse
+    self.pwm1.duty_u16(int(65535 * speed * r1r / 100))
+    self.m2Dir.value(0)  # Motor 2 reverse
+    self.pwm2.duty_u16(int(65535 * speed * r2r / 100))
+    self.led.value(1)  
+
+    def Forward(self, speed=100): 
+        """Moves the robot forward at the given speed (default 100%)."""
+        self.m1Dir.value(1)  
+        self.pwm1.duty_u16(int(65535 * speed * r1 / 100))
+        self.m2Dir.value(1)  
+        self.pwm2.duty_u16(int(65535 * speed * r2 / 100))
+        self.led.value(1)  
+
     def acw_spin(self, speed): 
-        self.m1Dir.value(1) 
-        self.pwm1.duty_u16(int(65535*speed*r1/100))
-        self.m2Dir.value(0) 
-        self.pwm2.duty_u16(int(65535*speed*r2/100))
-        self.led.value(1)
-        
+        """Spins the robot anti-clockwise (left)."""
+        self.m1Dir.value(1)  
+        self.pwm1.duty_u16(int(65535 * speed * r1 / 100))
+        self.m2Dir.value(0)  
+        self.pwm2.duty_u16(int(65535 * speed * r2 / 100))
+        self.led.value(1)  
+
     def cw_spin(self, speed): 
-        self.m1Dir.value(0) 
-        self.pwm1.duty_u16(int(65535*speed*r1/100))
-        self.m2Dir.value(1) 
-        self.pwm2.duty_u16(int(65535*speed*r2/100))
-        self.led.value(1)
-    
-    def Actuator_up(self, speed, duration = 4.8):
-        self.m3Dir.value(1) 
-        self.pwm3.duty_u16(int(65535*speed/100))
+        """Spins the robot clockwise (right)."""
+        self.m1Dir.value(0)  
+        self.pwm1.duty_u16(int(65535 * speed * r1 / 100))
+        self.m2Dir.value(1)  
+        self.pwm2.duty_u16(int(65535 * speed * r2 / 100))
+        self.led.value(1)  
+
+    def Actuator_up(self, speed, duration=2.3):
+        """Moves an actuator up for a set duration."""
+        self.m3Dir.value(1)  
+        self.pwm3.duty_u16(int(65535 * speed / 100))
         time.sleep(duration)
         self.pwm3.duty_u16(0)
-        self.led.value(1)
-        
-    def Actuator_down(self, speed, duration = 2.2):
-        self.m3Dir.value(0) 
-        self.pwm3.duty_u16(int(65535*speed/100))
+        self.led.value(1)  
+
+    def Actuator_down(self, speed, duration=2.2):
+        """Moves an actuator down for a set duration."""
+        self.m3Dir.value(0)  
+        self.pwm3.duty_u16(int(65535 * speed / 100))
         time.sleep(duration)
         self.pwm3.duty_u16(0)
-        self.led.value(1)
-        
-    
+        self.led.value(1)  
+
     def adjust_direction(self, turn, speed=100):
-        self.led.value(1)
+        """Adjusts movement direction: 'left', 'right', or 'none' (straight)."""
+        self.led.value(1)  
+
         if turn == "left":
-            self.m1Dir.value(1) 
-            self.pwm1.duty_u16(int(65535*speed*r1/100))
-            self.m2Dir.value(1) 
-            self.pwm2.duty_u16(int(65535*(speed*r2*0.75)/100))
+            self.m1Dir.value(1)  
+            self.pwm1.duty_u16(int(65535 * speed * r1 / 100))
+            self.m2Dir.value(1)  
+            self.pwm2.duty_u16(int(65535 * (speed * r2 * 0.75) / 100))
+
         elif turn == "right":
-            self.m1Dir.value(1)
-            self.pwm1.duty_u16(int(65535*(speed*r1*0.75)/100))
-            self.m2Dir.value(1)
-            self.pwm2.duty_u16(int(65535*speed*r2/100))
+            self.m1Dir.value(1)  
+            self.pwm1.duty_u16(int(65535 * (speed * r1 * 0.75) / 100))
+            self.m2Dir.value(1)  
+            self.pwm2.duty_u16(int(65535 * speed * r2 / 100))
+
         elif turn == "none":
-            self.m1Dir.value(1)
-            self.pwm1.duty_u16(int(65535*(speed*r1)/100))
-            self.m2Dir.value(1)
-            self.pwm2.duty_u16(int(65535*speed*r2/100))
+            self.m1Dir.value(1)  
+            self.pwm1.duty_u16(int(65535 * speed * r1 / 100))
+            self.m2Dir.value(1)  
+            self.pwm2.duty_u16(int(65535 * speed * r2 / 100))
             
     """
     def rev_adjust_direction(self, turn):
